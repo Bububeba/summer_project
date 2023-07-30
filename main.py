@@ -4,7 +4,8 @@ import pygame
 import sys
 from random import *
 from weapon import *
-from coin import *
+from coin   import *
+from enemy  import *
 from main_hero import *
 
 
@@ -161,13 +162,16 @@ while True:
                 fllast_move_is_right = False
 
 
-            elif event.key==pygame.K_d or event.key==pygame.K_RIGHT:
+            elif event.key == pygame.K_d or event.key==pygame.K_RIGHT:
                 # flmove_up    = False
                 # flmove_down  = False
                 flmove_left  = False
                 flmove_right = True
 
                 fllast_move_is_right = True
+            elif event.key == pygame.K_ESCAPE:
+                sys.exit()
+
         
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==pygame.K_UP:
@@ -183,7 +187,8 @@ while True:
                 flmove_right = False
 
         elif event.type == pygame.USEREVENT:
-            Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
+            # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
+            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', 20, 1, 5, coins)
          
 
 
@@ -226,8 +231,9 @@ while True:
 
 
     font = pygame.font.SysFont('couriernew', int(40))
-    text = font.render(str("Coins: " + str(Main_Hero.coins_score)), True, BLACK )
+    text = font.render(str("HP: " + str(Main_Hero.hp)), True, BLACK )
     screen.blit(text, (0, 0))
+
 
     pygame.display.update()
      
