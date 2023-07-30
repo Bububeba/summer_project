@@ -22,9 +22,4 @@ class Coin(pygame.sprite.Sprite):
             # print("-> " , animcount)
             self.image = coin_anim[animcount // 5]
             # self.rect = self.image.get_rect()
-
-        
-           
-
- 
         
