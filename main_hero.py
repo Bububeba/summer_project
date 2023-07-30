@@ -2,7 +2,7 @@ import pygame
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, x, y, filename, hp, coins_score, speed, weapon, range, is_dead=False):
+    def __init__(self, x, y, filename, hp, coins_score, speed, weapon, range, is_dead = False):
         pygame.sprite.Sprite.__init__(self)
         self.hp = hp
         self.coins_score = coins_score
@@ -12,8 +12,8 @@ class Hero(pygame.sprite.Sprite):
         self.range  = range 
         self.x = x
         self.y = y
-        self.sprite = pygame.image.load(filename)
-        self.rect = self.sprite.get_rect(center=(x, y))
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect(center=(x, y))
 
     def update(self, animcount,
                move_right, move_left,
@@ -24,7 +24,6 @@ class Hero(pygame.sprite.Sprite):
         if self.is_dead:
             print("end")
         else:
-
             if flmove_down:
                 if fllast_move_is_right:
                     self.image = move_right[animcount // 5]
