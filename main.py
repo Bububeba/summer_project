@@ -7,6 +7,7 @@ from weapon import *
 from coin   import *
 from enemy  import *
 from main_hero import *
+from map import Room
 
 
 
@@ -90,20 +91,9 @@ image_range_hit  = pygame.image.load('sprites\i_range_hit_1.png').convert_alpha(
 
 animcount = 0         # счетчик кадров для анимации
 
-
-
-
-
-
-
-
 pygame.time.set_timer(pygame.USEREVENT, 300)
 
-
 Main_Hero = Hero(0, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 5, None, None)
-
-
-
 
 weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 5, 150)
 center = weapon.rect.center
@@ -121,8 +111,27 @@ Main_Hero.weapon = weapon
 
 coins = pygame.sprite.Group()
 
-# all_sprites = pygame.sprite.Group()
-# coins.add(Main_Hero)
+r1 = """W WWWWWWWWWW
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+           W
+WWWWWWWWWWWW
+"""
+
+# size = (600, 600)
+# screen = pygame.display.set_mode(size)
+donbass = []
+room1 = Room(r1)
+room1.room_draw(screen, Main_Hero, donbass)
+
+rect = pygame.rect
 
 
 # если надо до цикла отобразить
@@ -190,10 +199,6 @@ while True:
             # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
             Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', 20, 1, 5, coins)
          
-
-
-
-
     # обновление объектов    
     animcount += 1
     if animcount + 2 >= 30:
@@ -213,11 +218,6 @@ while True:
     
     coins.update(animcount, coin_anim, Main_Hero )
 
-
-
-    
-    
-
     # --------
  
     # обновление экрана
@@ -232,6 +232,7 @@ while True:
 
     font = pygame.font.SysFont('couriernew', int(40))
     text = font.render(str("HP: " + str(Main_Hero.hp)), True, BLACK )
+    room1.room_draw(screen, Main_Hero, donbass)
     screen.blit(text, (0, 0))
 
 

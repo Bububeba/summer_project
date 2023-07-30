@@ -22,8 +22,9 @@ class Hero(pygame.sprite.Sprite):
                fllast_move_is_right):
 
         if self.hp <= 0:
-            self.kill()
-            print("end")
+            pass
+            # self.kill()
+            # print("end")
         else:
             if flmove_down:
                 if fllast_move_is_right:
