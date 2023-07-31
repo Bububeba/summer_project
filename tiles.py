@@ -7,5 +7,5 @@ class Tile(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.image = pygame.image.load(f"images\\{filename}")
-        self.rect = self.image.get_rect(center=(x, y))
+        self.rect = self.image.get_rect(topleft  = (x, y))
 

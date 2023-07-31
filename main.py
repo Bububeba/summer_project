@@ -14,7 +14,7 @@ from map import Room
 # константы
 WIDTH = 600
 HEIGHT = 400
-FPS = 30
+FPS = 60
 
 # speed = 5
 
@@ -192,12 +192,13 @@ while True:
                 flmove_right = False
 
         elif event.type == pygame.USEREVENT:
+            pass
             # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
-            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', 20, 1, 5, coins)
+            # Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', 20, 1, 5, coins)
          
     # обновление объектов    
     animcount += 1
-    if animcount + 2 >= 30:
+    if animcount + 2 >= FPS:
         animcount = 0
 
     
@@ -230,6 +231,8 @@ while True:
     text = font.render(str("HP: " + str(Main_Hero.hp)), True, BLACK )
     room1.room_draw(screen, Main_Hero, donbass)
     screen.blit(text, (0, 0))
+
+    pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.rect.topleft,  100, 100), 1)
 
 
     pygame.display.update()

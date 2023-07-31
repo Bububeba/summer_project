@@ -28,39 +28,64 @@ class Hero(pygame.sprite.Sprite):
         else:
             if flmove_down:
                 if fllast_move_is_right:
-                    self.image = move_right[animcount // 5]
+                    self.image = move_right[animcount // 10]
                 else:
-                    self.image = move_left[animcount // 5]
+                    self.image = move_left[animcount // 10]
 
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
-                    self.y += (1 * self.speed)
+                self.y += (1 * self.speed)
+                self.rect.centery +=(1 * self.speed)
+                # print(pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]), end = ' --- ')
+                
 
+                if (pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1):
+                    self.y -= (1 * self.speed)
+                    self.rect.centery -=(1 * self.speed)
+
+                # print(pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]))
+                # print(self.rect.center, " - ", self.x, self. y)
+                # print()
+
+                  
             if flmove_up:
                 if fllast_move_is_right:
-                    self.image = move_right[animcount // 5]
+                    self.image = move_right[animcount // 10]
                 else:
-                    self.image = move_left[animcount // 5]
+                    self.image = move_left[animcount // 10]
 
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
-                    self.y -= (1 * self.speed)
+                self.y -= (1 * self.speed)
+                self.rect.centery -=(1 * self.speed)
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                    self.y += (1 * self.speed)
+                    self.rect.centery +=(1 * self.speed)
+                    
             
 
             if flmove_right:
-                self.image = move_right[animcount // 5]
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
-                    self.x += (1 * self.speed)
+                self.image = move_right[animcount // 10]
+                
+                self.x += (1 * self.speed)
+                self.rect.centerx += (1 * self.speed)
+                
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                    self.x -= (1 * self.speed)
+                    self.rect.centerx -=(1 * self.speed)
               
 
             if flmove_left:
-                self.image = move_left[animcount // 5]
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
-                    self.x -= (1 * self.speed)
+                self.image = move_left[animcount // 10]
+
+                self.x -= (1 * self.speed)
+                self.rect.centerx -=(1 * self.speed)
+
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                    self.x += (1 * self.speed)
+                    self.rect.centerx +=(1 * self.speed)
         
             if not (flmove_down and flmove_up and flmove_left and flmove_right):
                 if fllast_move_is_right:
-                    self.image = move_right[animcount // 5]
+                    self.image = move_right[animcount // 10]
                 else:
-                    self.image = move_left[animcount // 5]
+                    self.image = move_left[animcount // 10]
               
 
             self.rect = self.image.get_rect(center=(self.x, self.y))
@@ -89,12 +114,12 @@ class Hero(pygame.sprite.Sprite):
         # range.image = pygame.transform.scale(pygame.transform.rotate(image_range, animcount * 0.5), (image_range.get_width() * (self.weapon.range / 100), image_range.get_height() * (self.weapon.range / 100)))
         # range.image = pygame.transform.scale(image_range, (image_range.get_width() * (self.weapon.range / 100) - animcount // 2, image_range.get_height() * (self.weapon.range / 100) - animcount//2))
 
-        # range.image = pygame.transform.scale(range_anim[animcount // 5], (range_anim[animcount // 5].get_width() * (self.weapon.range / 100), range_anim[animcount // 5].get_height() * (self.weapon.range / 100)))
+        # range.image = pygame.transform.scale(range_anim[animcount // 10], (range_anim[animcount // 10].get_width() * (self.weapon.range / 100), range_anim[animcount // 10].get_height() * (self.weapon.range / 100)))
         
 
 
 
-        #  self.image = move_right[animcount // 5]
+        #  self.image = move_right[animcount // 10]
         range.rect = range.image.get_rect()       
         range.rect.center = (self.rect.centerx, self.rect.centery)
         
