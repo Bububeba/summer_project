@@ -10,11 +10,10 @@ from main_hero import *
 from map import Room
 
 
-
 # константы
 WIDTH = 600
-HEIGHT = 400
-FPS = 60
+HEIGHT = 600
+FPS = 30
 
 # speed = 5
 
@@ -32,9 +31,10 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 screen.fill((255,255,255))
 pygame.display.set_caption("game_VZ")
-clock = pygame.time.Clock()
 
-pygame.time.set_timer(pygame.USEREVENT, 300)
+
+clock = pygame.time.Clock()
+pygame.time.set_timer(pygame.USEREVENT, 5000)
 
 
 
@@ -91,11 +91,9 @@ image_range_hit  = pygame.image.load('sprites\i_range_hit_1.png').convert_alpha(
 
 animcount = 0         # счетчик кадров для анимации
 
-pygame.time.set_timer(pygame.USEREVENT, 300)
+Main_Hero = Hero(WIDTH // 2, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 7, None, None)
 
-Main_Hero = Hero(WIDTH // 2, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 5, None, None)
-
-weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 5, 150)
+weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 5, 10)
 center = weapon.rect.center
 weapon.rect = weapon.image.get_rect(center = center)
 
@@ -105,7 +103,8 @@ Main_Hero.range  = range
 Main_Hero.weapon = weapon
 
 
-coins = pygame.sprite.Group()
+coins  = pygame.sprite.Group()
+enemys = pygame.sprite.Group()
 
 r1 = """W WWWWWWWWWW
 W          W
@@ -121,8 +120,8 @@ W          W
 WWWWWWWWWWWW
 """
 
-size = (600, 600)
-screen = pygame.display.set_mode(size)
+# size = (700, 700)
+# screen = pygame.display.set_mode(size)
 donbass = []
 room1 = Room(r1)
 room1.room_draw(screen, Main_Hero, donbass)
@@ -132,6 +131,7 @@ rect = pygame.rect
 
 # если надо до цикла отобразить
 # какие-то объекты, обновляем экран
+# Enemy(300, 300,'sprites\coin_1.png', 50, 10, 5, 1, enemys)
 pygame.display.update()
 
 while True:
@@ -192,9 +192,9 @@ while True:
                 flmove_right = False
 
         elif event.type == pygame.USEREVENT:
-            pass
             # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
-            # Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', 20, 1, 5, coins)
+            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'images\wall.png', 20, 1, 5, 1, enemys)
+            # print(enemys)
          
     # обновление объектов    
     animcount += 1
@@ -208,12 +208,15 @@ while True:
                     flmove_up, flmove_down, flmove_left, flmove_right, 
                     fllast_move_is_right, room1)
     
+
     Main_Hero.update_weapon(animcount, fllast_move_is_right,
-                            Main_Hero.weapon, image_weapon, range, image_range, image_range_hit, coins)
+                            Main_Hero.weapon, image_weapon, range, image_range, image_range_hit, enemys, coins)
     
 
+    enemys.update(Main_Hero, pygame.time.get_ticks())
+    # print(enemys)
+    coins.update(animcount, coin_anim, Main_Hero)
     
-    coins.update(animcount, coin_anim, Main_Hero )
 
     # --------
  
@@ -224,15 +227,21 @@ while True:
     screen.blit(range.image, (range.rect[0], range.rect[1] ))
     screen.blit(Main_Hero.image, Main_Hero.rect)
     screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] + animcount // 6))
+    enemys.draw(screen)
     coins.draw(screen)
 
 
     font = pygame.font.SysFont('couriernew', int(40))
     text = font.render(str("HP: " + str(Main_Hero.hp)), True, BLACK )
-    room1.room_draw(screen, Main_Hero, donbass)
+    # room1.room_draw(screen, Main_Hero, donbass)
     screen.blit(text, (0, 0))
 
     pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.rect.topleft,  100, 100), 1)
+    pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.range.rect.topleft,  10 + animcount // 2, 10 + animcount // 2), 1)
+    for x in enemys:
+        pygame.draw.circle(screen, RED, x.rect.center, 100, 1)
+        pass
+        
 
 
     pygame.display.update()

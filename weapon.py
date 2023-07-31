@@ -1,4 +1,5 @@
 import pygame
+from coin import *
 import random
 
 
@@ -13,12 +14,13 @@ class Weapon(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-    def hit(self, target, target_list, money_list):
-        if target.distance_to_MainHero <= self.range:
-            target.HP -= self.damage
-            if target.HP <= 0:
-                # money_list.append(Coin(random.randint(1, 10) ))
-                target_list.pop(target)
+    def hit(self, target, coins):
+            print(target.hp)
+            target.hp -= self.damage
+            if target.hp <= 0:
+                Coin(target.x, target.y, 'sprites\coin_1.png', coins)
+                target.kill()
+
 
     def __str__(self):
         return (str(self.name) +
