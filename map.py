@@ -20,7 +20,14 @@ class Room:
                     screen.blit(pygame.image.load(f"images\\{self.wall_tile}"), (x * 50, y * 50))
                     self.tiles.append(Tile(x * 50, y * 50, self.wall_tile))
 
-    def update(self, hero: Hero, enemies: list):
-        pass
+
+def rooms_update(rooms, curr_room_index, hero, screen, enemies):
+    if 0 <= hero.x <= 600 and hero.y == 50:
+        if curr_room_index != len(rooms) - 1:
+            curr_room_index += 1
+            hero.x = 300
+            hero.y = 300
+    rooms[curr_room_index].room_draw(screen, hero, enemies)
+
 
 
