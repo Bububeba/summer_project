@@ -24,13 +24,3 @@ class Room:
         pass
 
 
-denis = Hero(456, 256, "sprites/coin_1.png", 100, 0, 0, None, 0)
-donbass = []
-running = True
-
-# while running:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             running = False
-#     room1.room_draw(screen, denis, donbass)
-#     pygame.display.update()

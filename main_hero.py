@@ -19,7 +19,7 @@ class Hero(pygame.sprite.Sprite):
                move_right, move_left,
                flmove_up, flmove_down,
                flmove_left, flmove_right,
-               fllast_move_is_right):
+               fllast_move_is_right, room):
 
         if self.hp <= 0:
             pass
@@ -31,7 +31,9 @@ class Hero(pygame.sprite.Sprite):
                     self.image = move_right[animcount // 5]
                 else:
                     self.image = move_left[animcount // 5]
-                self.y += (1 * self.speed)
+
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
+                    self.y += (1 * self.speed)
 
             if flmove_up:
                 if fllast_move_is_right:
@@ -39,17 +41,20 @@ class Hero(pygame.sprite.Sprite):
                 else:
                     self.image = move_left[animcount // 5]
 
-                self.y -= (1 * self.speed)
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
+                    self.y -= (1 * self.speed)
             
 
             if flmove_right:
                 self.image = move_right[animcount // 5]
-                self.x += (1 * self.speed)
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
+                    self.x += (1 * self.speed)
               
 
             if flmove_left:
                 self.image = move_left[animcount // 5]
-                self.x -= (1 * self.speed)
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) == -1:
+                    self.x -= (1 * self.speed)
         
             if not (flmove_down and flmove_up and flmove_left and flmove_right):
                 if fllast_move_is_right:

@@ -93,7 +93,7 @@ animcount = 0         # счетчик кадров для анимации
 
 pygame.time.set_timer(pygame.USEREVENT, 300)
 
-Main_Hero = Hero(0, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 5, None, None)
+Main_Hero = Hero(WIDTH // 2, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 5, None, None)
 
 weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 5, 150)
 center = weapon.rect.center
@@ -103,10 +103,6 @@ range = Range (*Main_Hero.rect.center, 'sprites\i_range_1.png')
 
 Main_Hero.range  = range
 Main_Hero.weapon = weapon
-
-
-
-
 
 
 coins = pygame.sprite.Group()
@@ -209,7 +205,7 @@ while True:
     
     Main_Hero.update(animcount, move_right, move_left,
                     flmove_up, flmove_down, flmove_left, flmove_right, 
-                    fllast_move_is_right)
+                    fllast_move_is_right, room1)
     
     Main_Hero.update_weapon(animcount, fllast_move_is_right,
                             Main_Hero.weapon, image_weapon, range, image_range, image_range_hit, coins)
