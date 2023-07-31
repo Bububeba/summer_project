@@ -1,5 +1,4 @@
 # здесь подключаются модули
-
 import pygame
 import sys
 from random import *
@@ -131,7 +130,7 @@ room1.room_draw(screen, Main_Hero, donbass)
 
 rect = pygame.rect
 coins = pygame.sprite.Group()
-curr_room = 0
+curr_room =  0
 # если надо до цикла отобразить
 # какие-то объекты, обновляем экран
 pygame.display.update()
@@ -202,7 +201,7 @@ while True:
 
     Main_Hero.update(animcount, move_right, move_left,
                      flmove_up, flmove_down, flmove_left, flmove_right,
-                     fllast_move_is_right, room1)
+                     fllast_move_is_right, rooms[curr_room])
 
     Main_Hero.update_weapon(animcount, fllast_move_is_right,
                             Main_Hero.weapon, image_weapon, range, image_range, image_range_hit, coins)
@@ -220,7 +219,7 @@ while True:
     coins.draw(screen)
 
     font = pygame.font.SysFont('couriernew', int(40))
-    rooms_update(rooms, curr_room, Main_Hero, screen, donbass)
+    curr_room = rooms_update(rooms, curr_room, Main_Hero, screen, donbass)
     # text = font.render(str("HP: " + str(Main_Hero.hp)), True, BLACK)
     # screen.blit(text, (0, 0))
 

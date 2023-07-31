@@ -27,7 +27,9 @@ def rooms_update(rooms, curr_room_index, hero, screen, enemies):
             curr_room_index += 1
             hero.x = 300
             hero.y = 300
+            pygame.time.delay(100)
     rooms[curr_room_index].room_draw(screen, hero, enemies)
+    return curr_room_index
 
 
 
