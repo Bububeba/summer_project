@@ -125,8 +125,8 @@ W          W
 WWWWWWWWWWWW
 """
 
-# size = (600, 600)
-# screen = pygame.display.set_mode(size)
+size = (600, 600)
+screen = pygame.display.set_mode(size)
 donbass = []
 room1 = Room(r1)
 room1.room_draw(screen, Main_Hero, donbass)
