@@ -10,8 +10,8 @@ from map import Room
 
 
 # константы
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 1100
+HEIGHT = 900
 FPS = 30
 
 # speed = 5
@@ -65,6 +65,13 @@ coin_anim =  [pygame.image.load('sprites\coin_1.png').convert_alpha(),
               pygame.image.load('sprites\coin_5.png').convert_alpha(),
               pygame.image.load('sprites\coin_6.png').convert_alpha()]
 
+enemy_anim =  [pygame.image.load('sprites\enemy_1.png').convert_alpha(), 
+              pygame.image.load('sprites\enemy_2.png').convert_alpha(),
+              pygame.image.load('sprites\enemy_3.png').convert_alpha(),
+              pygame.image.load('sprites\enemy_4.png').convert_alpha(),
+              pygame.image.load('sprites\enemy_5.png').convert_alpha(),
+              pygame.image.load('sprites\enemy_6.png').convert_alpha()]
+
 
 range_anim = [pygame.image.load('sprites\i_range_1.png').convert_alpha(), 
               pygame.image.load('sprites\i_range_2.png').convert_alpha(),
@@ -92,7 +99,7 @@ animcount = 0         # счетчик кадров для анимации
 
 Main_Hero = Hero(WIDTH // 2, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 7, None, None)
 
-weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 3, 150)
+weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 3, 200)
 center = weapon.rect.center
 weapon.rect = weapon.image.get_rect(center = center)
 
@@ -145,7 +152,6 @@ rect = pygame.rect
 
 # если надо до цикла отобразить
 # какие-то объекты, обновляем экран
-# Enemy(300, 300,'sprites\coin_1.png', 50, 10, 5, 1, enemys)
 pygame.display.update()
 
 while True:
@@ -207,17 +213,13 @@ while True:
 
         elif event.type == pygame.USEREVENT:
             # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
-            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\enemy1.png', 200, 1, 5, 1, enemys)
-            # print(enemys)
+            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\enemy_1.png', 200, 1, 5, 1, enemys)
          
     # обновление объектов    
     animcount += 1
     if animcount + 2 >= FPS:
         animcount = 0
 
-    
-    # Main_Hero.weapon.range = 150 + Main_Hero.coins_score
-    
     Main_Hero.update(animcount, move_right, move_left,
                     flmove_up, flmove_down, flmove_left, flmove_right, 
                     fllast_move_is_right, room1)
@@ -253,12 +255,9 @@ while True:
     pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.rect.topleft,  100, 100), 1)
     pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.range.rect.topleft,  150 + animcount // 2, 150 + animcount // 2), 1)
     for x in enemys:
-        # print (*x.rect.topleft)
-        # print( x.image.get_width)
-        # print( x.image.get_height)
         pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
         
-        pygame.draw.circle(screen, RED, x.rect.center, 100, 1)
+        pygame.draw.circle(screen, RED, x.rect.center, x.range, 1)
         pass
         
 

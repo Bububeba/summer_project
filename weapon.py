@@ -13,6 +13,7 @@ class Weapon(pygame.sprite.Sprite):
         self.range = range
         self.x = x
         self.y = y
+        self.anim_count = 0
 
     def hit(self, target, coins):
             # print(target.hp)
@@ -23,9 +24,9 @@ class Weapon(pygame.sprite.Sprite):
 
 
     def __str__(self):
-        return (str(self.name) +
+        return (str(self.name)+
                 "\nDamage:\t" + str(self.damage) +
-                "\nRange :\t" + str(self.range) +
+                "\nRange :\t" + str(self.range)  +
                 "\n")
 
 
