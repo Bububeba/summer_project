@@ -1,6 +1,4 @@
 # здесь подключаются модули
-# хелло ворлд
-
 import pygame
 import sys
 from random import *
@@ -94,7 +92,7 @@ animcount = 0         # счетчик кадров для анимации
 
 Main_Hero = Hero(WIDTH // 2, HEIGHT // 2, 'sprites\move_right_1.png', 100, 0, 7, None, None)
 
-weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 5, 10)
+weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 3, 150)
 center = weapon.rect.center
 weapon.rect = weapon.image.get_rect(center = center)
 
@@ -120,12 +118,27 @@ W          W
            W
 WWWWWWWWWWWW
 """
+r2 = """WWWWWWWWWWWW
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+w          W
+           W
+           W                  
+WWWWWWWWWWWW
+"""
+
 
 # size = (700, 700)
 # screen = pygame.display.set_mode(size)
 donbass = []
-room1 = Room(r1)
-room1.room_draw(screen, Main_Hero, donbass)
+room1 = Room(r1, 80, 250, 250, 50)
+room2 = Room(r2, 70, 470, 100, 100)
+world = [room1, room2]
 
 rect = pygame.rect
 
@@ -194,7 +207,7 @@ while True:
 
         elif event.type == pygame.USEREVENT:
             # Coin(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\coin_1.png', coins)
-            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'images\wall.png', 20, 1, 5, 1, enemys)
+            Enemy(randint(25, WIDTH - 25), randint(25, HEIGHT - 25),'sprites\enemy1.png', 200, 1, 5, 1, enemys)
             # print(enemys)
          
     # обновление объектов    
@@ -238,8 +251,13 @@ while True:
     screen.blit(text, (0, 0))
 
     pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.rect.topleft,  100, 100), 1)
-    pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.range.rect.topleft,  10 + animcount // 2, 10 + animcount // 2), 1)
+    pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.range.rect.topleft,  150 + animcount // 2, 150 + animcount // 2), 1)
     for x in enemys:
+        # print (*x.rect.topleft)
+        # print( x.image.get_width)
+        # print( x.image.get_height)
+        pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
+        
         pygame.draw.circle(screen, RED, x.rect.center, 100, 1)
         pass
         

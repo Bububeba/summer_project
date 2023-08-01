@@ -15,7 +15,7 @@ class Weapon(pygame.sprite.Sprite):
         self.y = y
 
     def hit(self, target, coins):
-            print(target.hp)
+            # print(target.hp)
             target.hp -= self.damage
             if target.hp <= 0:
                 Coin(target.x, target.y, 'sprites\coin_1.png', coins)
