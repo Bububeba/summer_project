@@ -127,6 +127,7 @@ room1.room_draw(screen, Main_Hero, donbass)
 
 
 coins = pygame.sprite.Group()
+enemys = pygame.sprite.Group()
 curr_room = 0
 # если надо до цикла отобразить
 # какие-то объекты, обновляем экран
@@ -195,7 +196,7 @@ while True:
                      fllast_move_is_right, world[curr_room])
 
     Main_Hero.update_weapon(animcount, fllast_move_is_right,
-                            Main_Hero.weapon, image_weapon, range, image_range, image_range_hit, coins)
+                            Main_Hero.weapon, image_weapon, range, image_range, image_range_hit,enemys, coins)
 
     coins.update(animcount, coin_anim, Main_Hero)
 
