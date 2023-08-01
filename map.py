@@ -9,7 +9,8 @@ class Room:
     def __init__(self, location: str, start_x, start_y, portal_x, portal_y):
         self.location = location
         self.wall_tile = "wall.png"
-        self.water_tile = "water.png"
+        self.floor_tile = "floor.png"
+        self.gates_tile = "gate.png"
         self.tiles = pygame.sprite.Group()
         self.start_x = start_x
         self.start_y = start_y
@@ -23,19 +24,46 @@ class Room:
                 if c == "W":
                     screen.blit(pygame.image.load(f"images\\{self.wall_tile}"), (x * 50, y * 50))
                     self.tiles.add(Tile(x * 50, y * 50, self.wall_tile))
+                elif c == "G":
+                    screen.blit(pygame.image.load(f"images\\{self.gates_tile}"), (x * 50, y * 50))
+                    self.tiles.add(Tile(x * 50, y * 50, self.gates_tile))
+                elif c == " ":
+                    screen.blit(pygame.image.load(f"images\\{self.floor_tile}"), (x * 50, y * 50))
 
 
-def rooms_update(rooms, curr_room_index, hero, screen, enemies):
-    if curr_room_index != len(rooms) - 1:
+def screen_fade(screen):
+    overlay = pygame.Surface((600, 600))
+    overlay.set_alpha(0)
+    for _ in range(3000):
+        screen.blit(overlay, (0, 0))
+        overlay.set_alpha(1)
+        pygame.display.flip()
+
+
+def rooms_update(rooms, curr_level_index, curr_room_index, hero, screen, enemies):
+    if curr_room_index != len(rooms[curr_level_index]) - 1:
         if pygame.Rect.colliderect(hero.rect,
-                                   pygame.Rect(rooms[curr_room_index].portal_x, rooms[curr_room_index].portal_y, 50,  5)):
-
+                                   pygame.Rect(rooms[curr_level_index][curr_room_index].portal_x,
+                                               rooms[curr_level_index][curr_room_index].portal_y, 50, 5)):
             curr_room_index += 1
-            hero.x = rooms[curr_room_index].start_x
-            hero.y = rooms[curr_room_index].start_y
+            hero.x = rooms[curr_level_index][curr_room_index].start_x
+            hero.y = rooms[curr_level_index][curr_room_index].start_y
             pygame.time.delay(150)
-    rooms[curr_room_index].room_draw(screen, hero, enemies)
-    return curr_room_index
+    else:
+        if curr_level_index != len(rooms) - 1:
+            if pygame.Rect.colliderect(hero.rect,
+                                       pygame.Rect(rooms[curr_level_index][curr_room_index].portal_x,
+                                                   rooms[curr_level_index][curr_room_index].portal_y, 50, 5)):
+                curr_level_index += 1
+                curr_room_index = 0
+                hero.x = rooms[curr_level_index][curr_room_index].start_x
+                hero.y = rooms[curr_level_index][curr_room_index].start_y
+                screen_fade(screen)
+                rooms[curr_level_index][curr_room_index].room_draw(screen, hero, enemies)
+                pygame.time.delay(150)
+
+    rooms[curr_level_index][curr_room_index].room_draw(screen, hero, enemies)
+    return curr_level_index, curr_room_index
 
 
 '''
@@ -84,5 +112,3 @@ class Room:
     def update(self, hero: Hero, enemies: list):
         if len(enemies) <= 0:
 '''
-
-

@@ -78,7 +78,7 @@ animcount = 0  # счетчик кадров для анимации
 pygame.time.set_timer(pygame.USEREVENT, 300)
 
 
-r1 = """WWWWW   WWWWW
+r1 = """WWWWWGWWWWW
 W          W
 W          W
 W          W
@@ -92,7 +92,35 @@ W          W
 WWWWWWWWWWWW
 """
 
-r2 = """WWWWWWWWWWWW
+r2 = """WWWWWGWWWWWW
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+W          W
+w          W
+           W
+           W                  
+WWWWWWWWWWWW
+"""
+
+r3 = """WWWWWGWWWWW
+W          W
+W          W
+W          W
+           W
+           W
+           W
+W          W
+W          W
+W          W
+W          W
+WWWWWWWWWWWW
+"""
+
+r4 = """WWWWWWWWWWWW
 W          W
 W          W
 W          W
@@ -110,10 +138,14 @@ size = (600, 600)
 screen = pygame.display.set_mode(size)
 donbass = []
 room1 = Room(r1, 80, 250, 250, 50)
-room2 = Room(r2, 70, 470, 100, 100)
-world = [room1, room2]
+room2 = Room(r2, 70, 470, 250, 50)
+room3 = Room(r3, 80, 250, 250, 50)
+room4 = Room(r4, 70, 470, 100, 100)
+level1 = [room1, room2]
+level2 = [room3, room4]
+world = [level1, level2]
 
-Main_Hero = Hero(world[0].start_x, world[0].start_y, 'sprites\\move_right_1.png', 100, 0, 5, None, None)
+Main_Hero = Hero(world[0][0].start_x, world[0][0].start_y, 'sprites\\move_right_1.png', 100, 0, 5, None, None)
 
 weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\\scythe3.png', "Main_Hero", 5, 150)
 center = weapon.rect.center
@@ -128,7 +160,9 @@ room1.room_draw(screen, Main_Hero, donbass)
 
 coins = pygame.sprite.Group()
 enemys = pygame.sprite.Group()
+curr_level = 0
 curr_room = 0
+curr_room_draw = world[curr_level][curr_room]
 # если надо до цикла отобразить
 # какие-то объекты, обновляем экран
 pygame.display.update()
@@ -136,7 +170,6 @@ while True:
 
     # задержка
     clock.tick(FPS)
-    world[curr_room].room_draw(screen, Main_Hero, donbass)
     # цикл обработки событий
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -193,7 +226,7 @@ while True:
 
     Main_Hero.update(animcount, move_right, move_left,
                      flmove_up, flmove_down, flmove_left, flmove_right,
-                     fllast_move_is_right, world[curr_room])
+                     fllast_move_is_right, curr_room_draw)
 
     Main_Hero.update_weapon(animcount, fllast_move_is_right,
                             Main_Hero.weapon, image_weapon, range, image_range, image_range_hit,enemys, coins)
@@ -205,15 +238,17 @@ while True:
     # обновление экрана
     screen.fill((255, 255, 255))
 
-    screen.blit(range.image, (range.rect[0], range.rect[1]))
-    screen.blit(Main_Hero.image, Main_Hero.rect)
-    screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] + animcount // 6))
+
     coins.draw(screen)
 
     font = pygame.font.SysFont('couriernew', int(40))
 
-    curr_room = rooms_update(world, curr_room, Main_Hero, screen, donbass)
-    world[curr_room].tiles.empty()
+    curr_level, curr_room = rooms_update(world, curr_level,  curr_room, Main_Hero, screen, donbass)
+    curr_room_draw = world[curr_level][curr_room]
+    screen.blit(range.image, (range.rect[0], range.rect[1]))
+    screen.blit(Main_Hero.image, Main_Hero.rect)
+    screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] + animcount // 6))
+    curr_room_draw.tiles.empty()
 
     pygame.display.update()
 
