@@ -38,4 +38,51 @@ def rooms_update(rooms, curr_room_index, hero, screen, enemies):
     return curr_room_index
 
 
+'''
+import pygame
+
+from main_hero import Hero
+from tiles import Tile
+from enemy import Enemy
+
+
+class Room:
+    def __init__(self, location: str, width, height, count_of_tile_x, count_of_tile_y):
+        self.location = location
+        self.wall_tile = "wall.png"
+        self.floor_tile = "floor.png"
+        self.gates_tile = "gate.png"
+        self.tiles = []
+        self.screen_w = width
+        self.screen_h = height
+        self.room_w = count_of_tile_x * 50
+        self.room_h = count_of_tile_y * 50
+        self.x_offset = (self.screen_w - self.room_w) // 2
+        self.y_offset = (self.screen_h - self.room_h) // 2
+
+
+    def room_draw(self, screen, hero: Hero, enemies: list, width, height, count_of_tile_x, count_of_tile_y):
+        loc = self.location.splitlines()
+        self.screen_w = width
+        self.screen_h = height
+        self.room_w = count_of_tile_x * 50
+        self.room_h = count_of_tile_y * 50
+        self.x_offset = (self.screen_w - self.room_w) // 2
+        self.y_offset = (self.screen_h - self.room_h) // 2
+        for y, line in enumerate(loc):
+            for x, c in enumerate(line):
+                if c == "W":
+                    screen.blit(pygame.image.load(f"images\\{self.wall_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
+                    self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.wall_tile))
+                if c == "F":
+                    screen.blit(pygame.image.load(f"images\\{self.wall_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
+                    self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.wall_tile))
+                if c == " ":
+                    screen.blit(pygame.image.load(f"images\\{self.floor_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
+                    self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.wall_tile))
+
+    def update(self, hero: Hero, enemies: list):
+        if len(enemies) <= 0:
+'''
+
 
