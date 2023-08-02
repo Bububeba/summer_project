@@ -6,9 +6,10 @@ from enemy import Enemy
 
 
 class Room:
-    def __init__(self, location: str, width, height, portal1_x: int , portal1_y: int, portal2_x: int, portal2_y: int,
-                 portal3_x: int, portal3_y: int, portal4_x: int, portal4_y: int,
-                 count_of_tile_x, count_of_tile_y, is_clear = False):
+    def __init__(self, location: str, width, height, 
+                portal1_x: int, portal1_y: int, portal2_x: int, portal2_y: int,
+                portal3_x: int, portal3_y: int, portal4_x: int, portal4_y: int,
+                count_of_tile_x, count_of_tile_y, kills_cnt = 0, is_clear = False):
                     #1 - up, 2 - right, 3 - down, 4 - left
         self.location = location
         self.wall_tile = "wall.png"
@@ -30,6 +31,7 @@ class Room:
         self.room_h = count_of_tile_y * 50
         self.x_offset = (self.screen_w - self.room_w) // 2
         self.y_offset = (self.screen_h - self.room_h) // 2
+        self.kills_cnt = kills_cnt
         self.is_clear = is_clear
         if portal1_x != -1:
             self.rect1 = pygame.Rect(self.portal1_x, self.portal1_y, 50, 50)
@@ -64,8 +66,11 @@ class Room:
                     screen.blit(pygame.image.load(f"images\\{self.floor_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
                     # self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.floor_tile))
 
-    def update(self, hero, enemy_cnt, room_cnt, screen, width, height, enemys = [], rooms = []):
-        if enemy_cnt <= 0 and len(enemys) <= 0 and self.is_clear == False:
+    def update(self, enemy_cnt, max_enemy, room_cnt, screen, width, height, enemys):
+        # print(self.kills_cnt, max_enemy)
+        if self.kills_cnt == max_enemy and len(enemys) == 0 and self.is_clear == False:
+            # print (" -> ", enemy_cnt, len(enemys))
+            # print('idi nahui')
             self.is_clear = True
             self.location = self.location.replace('G', 'P')
 
