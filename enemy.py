@@ -23,13 +23,12 @@ class Enemy(pygame.sprite.Sprite):
         self.room = room
         self.add(group)
 
-    def update(self, animcount,  enemy_anim, Main_Hero, current_time):
-
-        
-
-
+    def update(self, animcount, enemy_anim, Main_Hero, current_time, room):
 
         if self.hp <= 0:
+            # print("KILL")
+            room.kills_cnt += 1
+            # print( room.kills_cnt)
             self.kill()
 
         else:
@@ -67,3 +66,24 @@ class Enemy(pygame.sprite.Sprite):
             self.x += dx / distance * self.speed
             self.y += dy / distance * self.speed
 
+
+
+
+class Cross(pygame.sprite.Sprite):
+    def __init__(self, x, y, filename, time_create, group):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.time_create = time_create
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect(center = (x, y))
+        self.add(group)
+
+    def update(self, animcount, cross_anim, current_time, enemys, room, hp, damage, speed):
+        self.image = cross_anim[animcount // 5]
+        if current_time - self.time_create >= 2000:
+            self.kill()
+            Enemy(self.x, self.y, 'sprites\enemy_1.png', 
+                hp, damage, speed, 1, enemys,  room)
+        
+        

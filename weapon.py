@@ -20,7 +20,7 @@ class Weapon(pygame.sprite.Sprite):
             target.hp -= self.damage
             if target.hp <= 0:
                 Coin(target.x, target.y, 'sprites\coin_1.png', coins)
-                target.kill()
+                # target.kill()
 
 
     def __str__(self):

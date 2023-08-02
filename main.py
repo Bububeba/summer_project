@@ -60,7 +60,14 @@ coin_anim =  [pygame.image.load('sprites\coin_1.png').convert_alpha(),
               pygame.image.load('sprites\coin_5.png').convert_alpha(),
               pygame.image.load('sprites\coin_6.png').convert_alpha()]
 
-enemy_anim =  [pygame.image.load('sprites\enemy_1.png').convert_alpha(), 
+cross_anim = [pygame.image.load('sprites\cross_1.png').convert_alpha(), 
+              pygame.image.load('sprites\cross_2.png').convert_alpha(),
+              pygame.image.load('sprites\cross_3.png').convert_alpha(),
+              pygame.image.load('sprites\cross_4.png').convert_alpha(),
+              pygame.image.load('sprites\cross_3.png').convert_alpha(),
+              pygame.image.load('sprites\cross_2.png').convert_alpha()]
+
+enemy_anim = [pygame.image.load('sprites\enemy_1.png').convert_alpha(), 
               pygame.image.load('sprites\enemy_2.png').convert_alpha(),
               pygame.image.load('sprites\enemy_3.png').convert_alpha(),
               pygame.image.load('sprites\enemy_4.png').convert_alpha(),
@@ -180,7 +187,7 @@ WWWWWWGGGWWWWWWWW
 """
 
 room0 = Room(r0, WIDTH, HEIGHT, 475, 50, -1, -1, -1, -1, -1, -1, 9, 14)
-room1 = Room(r1, WIDTH, HEIGHT, 250, 100, -1, -1, -1, -1, 200, 600, 12, 12)
+room1 = Room(r1, WIDTH, HEIGHT, 300, 100, -1, -1, -1, -1, 200, 500, 12, 12)
 room2 = Room(r2, WIDTH, HEIGHT, -1, -1, 900, 300, 600, 600, 50, 300, 18, 10)
 room3 = Room(r3, WIDTH, HEIGHT, 350, 50, 800, 600, -1, -1, -1, -1, 14, 14)
 room4 = Room(r4, WIDTH, HEIGHT, -1, -1, 900, 375, -1, -1, 50, 375, 18, 5)
@@ -196,7 +203,7 @@ level_num = 0
 
 Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 10)
 
-weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 300, 200)
+weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 300, 10)
 center = weapon.rect.center
 weapon.rect = weapon.image.get_rect(center = center)
 
@@ -207,10 +214,13 @@ Main_Hero.weapon = weapon
 
 coins  = pygame.sprite.Group()
 enemys = pygame.sprite.Group()
+crosses = pygame.sprite.Group()
+
 # enemy1 = Enemy(WIDTH//2-200, HEIGHT // 2-200, 'sprites\enemy1.png', 100, 1, 4, 1, enemys, None, None)
 
 enemy_count = 0
-spawn_time = pygame.time.get_ticks() + 5000
+spawn_time = 0
+max_enemy = 0
 
 # rect = pygame.rect
 
@@ -300,40 +310,47 @@ while True:
         damage= 6
         speed = 6
 
-    current_time = pygame.time.get_ticks()
-
-    if enemy_count > 0 and current_time >= spawn_time:
-        #добавить ёбучий крестик
-        Enemy(randint(WIDTH//2 - rooms[room_num].room_w // 2 + 100, WIDTH//2 + rooms[room_num].room_w // 2 - 50),
-            randint(HEIGHT//2 - rooms[room_num].room_h // 2 + 100, HEIGHT//2 + rooms[room_num].room_h // 2 - 50),
-            'sprites\enemy_1.png', hp, damage, speed, 1, enemys,  rooms[room_num])
+    # current_time = pygame.time.get_ticks()
+    # temp = enemy_count
+    if enemy_count > 0 and  pygame.time.get_ticks() >= spawn_time:
+        # print(enemy_count, "ADD")
+        Cross(
+            randint(WIDTH  // 2 - rooms[room_num].room_w // 2 + 100, WIDTH  // 2 + rooms[room_num].room_w // 2 - 50),
+            randint(HEIGHT // 2 - rooms[room_num].room_h // 2 + 100, HEIGHT // 2 + rooms[room_num].room_h // 2 - 50),
+            'sprites\cross_1.png',  pygame.time.get_ticks(), crosses)
+        
         enemy_count -= 1
-        spawn_time += 5
-
+        spawn_time =  pygame.time.get_ticks() + 3000
+        # print( pygame.time.get_ticks())
+        # print( spawn_time)
+        # print (enemy_count, len(enemys))
+    
+    # print (enemy_count, len(enemys))
     # clock = pygame.time.Clock()
     if rooms[room_num].is_clear:
         room_last = room_num
-        
         rooms[room_num].gates.clear()
+        
         if rooms[room_num].portal1_x != -1:
             pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 50, 50), 1)
             pygame.display.update()
             # pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
             if rooms[room_num].rect1.collidepoint(*Main_Hero.rect.center): 
-                print(rooms[room_num].rect1.center)
                 room_num = random.choice(rooms_d)
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal3_x
                 Main_Hero.y = rooms[room_num].portal3_y - 100
-                enemy_count = randint(3, 7)
+                max_enemy =  randint(3, 7)
+                enemy_count = max_enemy
+                
                 cnt = 0
                 while(cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
                     pygame.display.flip()
                     cnt += 1
                     clock.tick(20)
+                rooms[room_last].kills_cnt = 0
                 rooms[room_last].is_clear = False
-
 
         if rooms[room_num].portal2_x != -1:
             pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect2.topleft, 50, 50), 1)
@@ -344,13 +361,15 @@ while True:
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal4_x + 100
                 Main_Hero.y = rooms[room_num].portal4_y
-                enemy_count = randint(3, 7)
+                max_enemy =  randint(3, 7)
+                enemy_count = max_enemy
                 cnt = 0
                 while (cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
                     pygame.display.flip()
                     cnt += 1
                     clock.tick(16)
+                rooms[room_last].kills_cnt = 0
                 rooms[room_last].is_clear = False
 
         if rooms[room_num].portal3_x != -1:
@@ -362,13 +381,15 @@ while True:
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal1_x
                 Main_Hero.y = rooms[room_num].portal1_y + 100
-                enemy_count = randint(3, 7)
+                max_enemy =  randint(3, 7)
+                enemy_count = max_enemy
                 cnt = 0
                 while (cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
                     pygame.display.flip()
                     cnt += 1
                     clock.tick(16)
+                rooms[room_last].kills_cnt = 0
                 rooms[room_last].is_clear = False
 
         if rooms[room_num].portal4_x != -1:
@@ -380,13 +401,15 @@ while True:
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal2_x - 100
                 Main_Hero.y = rooms[room_num].portal2_y
-                enemy_count = randint(3, 7)
+                max_enemy =  randint(3, 7)
+                enemy_count = max_enemy
                 cnt = 0
                 while (cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
                     pygame.display.flip()
                     cnt += 1
                     clock.tick(16)
+                rooms[room_last].kills_cnt = 0
                 rooms[room_last].is_clear = False
 
 
@@ -396,10 +419,17 @@ while True:
                 #rooms[room_num-1].kill   
 
 
-    
     animcount += 1
     if animcount + 2 >= FPS:
         animcount = 0
+
+    crosses.update(animcount, cross_anim, pygame.time.get_ticks(), enemys, rooms[room_num], hp, damage, speed)
+    enemys.update(animcount, enemy_anim, Main_Hero, pygame.time.get_ticks(), rooms[room_num])
+
+
+
+
+    coins.update(animcount, coin_anim, Main_Hero)
 
     Main_Hero.update(animcount, move_right, move_left,
                     flmove_up, flmove_down, flmove_left, flmove_right, 
@@ -410,15 +440,12 @@ while True:
                             range, image_range, image_range_hit, 
                             enemys, coins)
     
-    enemys.update(animcount, enemy_anim, Main_Hero, pygame.time.get_ticks())
 
-
-
-    coins.update(animcount, coin_anim, Main_Hero)
+    
     
 
 
-    rooms[room_num].update(Main_Hero, enemy_count, room_num, screen, WIDTH, HEIGHT, enemys, rooms)
+    rooms[room_num].update(enemy_count, max_enemy, room_num, screen, WIDTH, HEIGHT, enemys)
 
     # --------
  
@@ -430,6 +457,7 @@ while True:
     screen.blit(Main_Hero.image, Main_Hero.rect)
     screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] + animcount // 6))
     coins.draw(screen)
+    crosses.draw(screen)
     enemys.draw(screen)
 
 
