@@ -144,7 +144,7 @@ W                W
 W                W
 W                W
 W                W
-WWWWWWWWWWWGWWWWWW
+WWWWWWWWWWGGGWWWWW
 """
 r3 = """WWWGGGWWWWWWWW
 W            W
@@ -313,7 +313,8 @@ while True:
     # clock = pygame.time.Clock()
     if rooms[room_num].is_clear:
         room_last = room_num
-
+        
+        rooms[room_num].gates.clear()
         if rooms[room_num].portal1_x != -1:
             pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 50, 50), 1)
             pygame.display.update()
@@ -323,7 +324,7 @@ while True:
                 room_num = random.choice(rooms_d)
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal3_x
-                Main_Hero.y = rooms[room_num].portal3_y - 50
+                Main_Hero.y = rooms[room_num].portal3_y - 100
                 enemy_count = randint(3, 7)
                 cnt = 0
                 while(cnt < len(load_anim)):
@@ -341,7 +342,7 @@ while True:
             if rooms[room_num].rect2.collidepoint(*Main_Hero.rect.center): 
                 room_num = random.choice(rooms_l)
                 coins.empty()
-                Main_Hero.x = rooms[room_num].portal4_x + 50
+                Main_Hero.x = rooms[room_num].portal4_x + 100
                 Main_Hero.y = rooms[room_num].portal4_y
                 enemy_count = randint(3, 7)
                 cnt = 0
@@ -360,7 +361,7 @@ while True:
                 room_num = random.choice(rooms_u)
                 coins.empty()
                 Main_Hero.x = rooms[room_num].portal1_x
-                Main_Hero.y = rooms[room_num].portal1_y + 50
+                Main_Hero.y = rooms[room_num].portal1_y + 100
                 enemy_count = randint(3, 7)
                 cnt = 0
                 while (cnt < len(load_anim)):
@@ -377,7 +378,7 @@ while True:
             if rooms[room_num].rect4.collidepoint(*Main_Hero.rect.center): 
                 room_num = random.choice(rooms_r)
                 coins.empty()
-                Main_Hero.x = rooms[room_num].portal2_x - 50
+                Main_Hero.x = rooms[room_num].portal2_x - 100
                 Main_Hero.y = rooms[room_num].portal2_y
                 enemy_count = randint(3, 7)
                 cnt = 0

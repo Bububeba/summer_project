@@ -110,7 +110,7 @@ W       W
 W       W
 WWWWWWWWW
 """
-r1 = """WGWWWWWWWWWW
+r1 = """WGGGWWWWWWWW
 W          W
 W          W
 W          W

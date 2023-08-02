@@ -321,6 +321,8 @@ WWWWWWGGGWWWWWWWW
         # clock = pygame.time.Clock()
         if rooms[room_num].is_clear:
             room_last = room_num
+            save.update(Main_Hero, level_num, room_num)
+
 
             if rooms[room_num].portal1_x != -1:
                 pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 50, 50), 1)
@@ -333,8 +335,7 @@ WWWWWWGGGWWWWWWWW
                     Main_Hero.x = rooms[room_num].portal3_x
                     Main_Hero.y = rooms[room_num].portal3_y - 50
 
-                    save.update(Main_Hero, level_num, room_num)
-
+                    
                     enemy_count = randint(3, 7)
                     cnt = 0
                     while (cnt < len(load_anim)):
@@ -354,7 +355,7 @@ WWWWWWGGGWWWWWWWW
                     Main_Hero.x = rooms[room_num].portal4_x + 50
                     Main_Hero.y = rooms[room_num].portal4_y
 
-                    save.update(Main_Hero, level_num, room_num)
+                    # save.update(Main_Hero, level_num, room_num)
 
                     enemy_count = randint(3, 7)
                     cnt = 0
@@ -375,7 +376,7 @@ WWWWWWGGGWWWWWWWW
                     Main_Hero.x = rooms[room_num].portal1_x
                     Main_Hero.y = rooms[room_num].portal1_y + 50
 
-                    save.update(Main_Hero, level_num, room_num)
+                    # save.update(Main_Hero, level_num, room_num)
 
                     enemy_count = randint(3, 7)
                     cnt = 0
@@ -396,7 +397,7 @@ WWWWWWGGGWWWWWWWW
                     Main_Hero.x = rooms[room_num].portal2_x - 50
                     Main_Hero.y = rooms[room_num].portal2_y
 
-                    save.update(Main_Hero, level_num, room_num)
+                    # save.update(Main_Hero, level_num, room_num)
 
                     enemy_count = randint(3, 7)
                     cnt = 0

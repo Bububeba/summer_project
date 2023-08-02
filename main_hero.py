@@ -37,7 +37,7 @@ class Hero(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect(center = (self.x, self.y))
                 # self.rect.centery += (1 * self.speed)
 
-                if (pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1):
+                if (pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1) or pygame.Rect.collidelist(self.rect, [i.rect for i in room.gates]) != -1:
                     self.y -= (1 * self.speed)
                     self.rect.centery -= (1 * self.speed)
 
@@ -51,7 +51,7 @@ class Hero(pygame.sprite.Sprite):
 
                 self.y -= (1 * self.speed)
                 self.rect.centery -= (1 * self.speed)
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1 or pygame.Rect.collidelist(self.rect, [i.rect for i in room.gates]) != -1:
                     self.y += (1 * self.speed)
                     self.rect.centery += (1 * self.speed)
                     
@@ -63,7 +63,7 @@ class Hero(pygame.sprite.Sprite):
                 self.x += (1 * self.speed)
                 self.rect.centerx += (1 * self.speed)
                 
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1 or pygame.Rect.collidelist(self.rect, [i.rect for i in room.gates]) != -1:
                     self.x -= (1 * self.speed)
                     self.rect.centerx -= (1 * self.speed)
               
@@ -74,7 +74,7 @@ class Hero(pygame.sprite.Sprite):
                 self.x -= (1 * self.speed)
                 self.rect.centerx -= (1 * self.speed)
 
-                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1:
+                if pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1 or pygame.Rect.collidelist(self.rect, [i.rect for i in room.gates]) != -1:
                     self.x += (1 * self.speed)
                     self.rect.centerx += (1 * self.speed)
         
