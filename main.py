@@ -96,7 +96,7 @@ load_anim = [pygame.transform.scale(pygame.image.load('images\load1.png'), (WIDT
                 pygame.transform.scale(pygame.image.load('images\load13.png'), (WIDTH, HEIGHT)).convert_alpha(),
                 pygame.transform.scale(pygame.image.load('images\load14.png'), (WIDTH, HEIGHT)).convert_alpha(),
                 pygame.transform.scale(pygame.image.load('images\load15.png'), (WIDTH, HEIGHT)).convert_alpha(),
-                pygame.transform.scale(pygame.image.load('images\load16.png'), (WIDTH, HEIGHT)).convert_alpha(),]
+                pygame.transform.scale(pygame.image.load('images\load16.png'), (WIDTH, HEIGHT)).convert_alpha()]
 
 image_weapon = pygame.image.load('sprites\scythe3.png').convert_alpha()
 image_weapon = pygame.transform.rotate(image_weapon , -15)
@@ -423,7 +423,7 @@ while True:
  
     # обновление экрана
     screen.fill(BLACK)
-
+    rooms[room_num].tiles.clear()
     rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50)
     screen.blit(range.image, (range.rect[0], range.rect[1] ))
     screen.blit(Main_Hero.image, Main_Hero.rect)
