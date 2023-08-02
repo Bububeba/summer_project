@@ -3,12 +3,12 @@ import pygame
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, x, y, filename, hp, coins_score, speed, weapon, range, is_dead = False):
+    def __init__(self, x, y, filename, hp, coins_score, speed, weapon = None, range = None):
         pygame.sprite.Sprite.__init__(self)
         self.hp = hp
+        self.max_hp = hp
         self.coins_score = coins_score
         self.speed = speed
-        self.is_dead = is_dead
         self.weapon = weapon
         self.range  = range 
         self.x = x
@@ -34,7 +34,8 @@ class Hero(pygame.sprite.Sprite):
                     self.image = move_left[animcount // 5]
 
                 self.y += (1 * self.speed)
-                self.rect.centery += (1 * self.speed)
+                self.rect = self.image.get_rect(center = (self.x, self.y))
+                # self.rect.centery += (1 * self.speed)
 
                 if (pygame.Rect.collidelist(self.rect, [i.rect for i in room.tiles]) != -1):
                     self.y -= (1 * self.speed)
@@ -84,7 +85,7 @@ class Hero(pygame.sprite.Sprite):
                     self.image = move_left[animcount // 5]
               
 
-            self.rect = self.image.get_rect(center=(self.x, self.y))
+            self.rect = self.image.get_rect(center = (self.x, self.y))
 
     def update_weapon(self, animcount,
                       fllast_move_is_right, weapon, image_weapon, range, image_range, image_range_hit, group, coins):
@@ -99,7 +100,6 @@ class Hero(pygame.sprite.Sprite):
         is_hit = False
         for item in group:
             if self.range.rect.colliderect(item):
-                # print(self.range.rect.collidepoint(item.rect.center))
                 is_hit = True
                 target_hit = item
                 break

@@ -31,13 +31,13 @@ class Room:
         self.x_offset = (self.screen_w - self.room_w) // 2
         self.y_offset = (self.screen_h - self.room_h) // 2
         self.is_clear = is_clear
-        if portal1_x != None:
+        if portal1_x != -1:
             self.rect1 = pygame.Rect(self.portal1_x, self.portal1_y, 50, 50)
-        if portal2_x != None:
+        if portal2_x != -1:
             self.rect2 = pygame.Rect(self.portal2_x, self.portal2_y, 50, 50)
-        if portal3_x != None:
+        if portal3_x != -1:
             self.rect3 = pygame.Rect(self.portal3_x, self.portal3_y, 50, 50)
-        if portal4_x != None:
+        if portal4_x != -1:
             self.rect4 = pygame.Rect(self.portal4_x, self.portal4_y, 50, 50)
 
 
@@ -59,15 +59,18 @@ class Room:
                     self.gates.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.gates_tile))
                 if c == " ":
                     screen.blit(pygame.image.load(f"images\\{self.floor_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
-                    self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.floor_tile))
+                    # self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.floor_tile))
                 if c == "P":
                     screen.blit(pygame.image.load(f"images\\{self.floor_tile}"), (x * 50 + self.x_offset, y * 50 + self.y_offset))
-                    self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.floor_tile))
+                    # self.tiles.append(Tile(x * 50 + self.x_offset, y * 50 + self.y_offset, self.floor_tile))
 
     def update(self, hero, enemy_cnt, room_cnt, screen, width, height, enemys = [], rooms = []):
         if enemy_cnt <= 0 and len(enemys) <= 0 and self.is_clear == False:
             self.is_clear = True
             self.location = self.location.replace('G', 'P')
+
+        elif self.is_clear == False:
+            self.location = self.location.replace('P', 'G')
 
 
 
