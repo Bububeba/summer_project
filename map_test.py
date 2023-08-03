@@ -10,6 +10,7 @@ from enemy import *
 from main_hero import *
 from map import Room
 from button import *
+from save import *
 
 
 def improvements(hero: Hero):
@@ -19,10 +20,6 @@ def improvements(hero: Hero):
     background.fill(pygame.Color('orange'))
 
     manager = pygame_gui.UIManager((800, 600))
-
-    heal_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((280, 375), (200, 100)),
-                                               text='heal',
-                                               manager=manager)
 
     max_hp_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((280, 275), (200, 100)),
                                                  text='+max hp',
@@ -38,18 +35,14 @@ def improvements(hero: Hero):
     while is_running:
         time_delta = clock.tick(60) / 1000.0
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
                 is_running = False
                 pygame.display.set_mode((1000, 800))
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if hero.coins_score > 0:
                     if event.ui_element == speed_button:
                         hero.coins_score -= 2
-                        hero.speed += 0.1
-
-                    if event.ui_element == heal_button:
-                        hero.coins_score -= 2
-                        hero.hp += 10
+                        hero.speed += 0.4
 
                     if event.ui_element == max_hp_button:
                         hero.coins_score -= 10
@@ -293,7 +286,6 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 
     end_game = False
     end_time = 0
-    # level_num = 0
     level_num = 0
     clear_rooms = 0
     need_rooms = 3
@@ -338,6 +330,11 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     enemy_count = 0
     spawn_time = 0
     max_enemy = 0
+    save = Save(Main_Hero, level_num, room_num, need_rooms)
+    if is_load:
+        Main_Hero.x, Main_Hero.y, Main_Hero.coins_score, Main_Hero.max_hp, \
+            Main_Hero.hp, Main_Hero.speed, level_num, room_num, clear_rooms = save.get_data()
+
 
     # rect = pygame.rect
 
@@ -473,6 +470,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
         if rooms[room_num].is_clear:
             room_last = room_num
             rooms[room_num].gates.clear()
+            save.update(Main_Hero, level_num, room_num, clear_rooms)
 
             if rooms[room_num].portal1_x != -1:
                 pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 150, 150), 1)

@@ -262,6 +262,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 
     Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 10)
 
+
     killed_enemy = 0
     fake_coins = Main_Hero.coins_score
     sum_time = 0
