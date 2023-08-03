@@ -83,13 +83,13 @@ class Room:
         self.kills_cnt = kills_cnt
         self.is_clear = is_clear
         if portal1_x != -1:
-            self.rect1 = pygame.Rect(self.portal1_x, self.portal1_y, 50, 50)
+            self.rect1 = pygame.Rect(self.portal1_x, self.portal1_y, 150, 150)
         if portal2_x != -1:
-            self.rect2 = pygame.Rect(self.portal2_x, self.portal2_y, 50, 50)
+            self.rect2 = pygame.Rect(self.portal2_x, self.portal2_y, 150, 150)
         if portal3_x != -1:
-            self.rect3 = pygame.Rect(self.portal3_x, self.portal3_y, 50, 50)
+            self.rect3 = pygame.Rect(self.portal3_x, self.portal3_y, 150, 150)
         if portal4_x != -1:
-            self.rect4 = pygame.Rect(self.portal4_x, self.portal4_y, 50, 50)
+            self.rect4 = pygame.Rect(self.portal4_x, self.portal4_y, 150, 150)
 
 
     def room_draw(self, screen, width, height, count_of_tile_x, count_of_tile_y, lvl):

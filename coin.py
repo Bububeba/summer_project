@@ -20,6 +20,6 @@ class Coin(pygame.sprite.Sprite):
             self.kill()
         else: #если нет коллизии с главным героем'''
             # print("-> " , animcount)
-            self.image = coin_anim[animcount // 5]
+            self.image = coin_anim[int(animcount // 2.5)]
             # self.rect = self.image.get_rect()
         

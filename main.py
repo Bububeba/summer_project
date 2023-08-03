@@ -61,6 +61,12 @@ def game(is_load):
                   pygame.image.load('sprites\coin_3.png').convert_alpha(),
                   pygame.image.load('sprites\coin_4.png').convert_alpha(),
                   pygame.image.load('sprites\coin_5.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_6.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_1.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_2.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_3.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_4.png').convert_alpha(),
+                  pygame.image.load('sprites\coin_5.png').convert_alpha(),
                   pygame.image.load('sprites\coin_6.png').convert_alpha()]
 
     cross_anim = [pygame.image.load('sprites\cross_1.png').convert_alpha(),
@@ -75,21 +81,27 @@ def game(is_load):
                   pygame.image.load('sprites\enemy_3.png').convert_alpha(),
                   pygame.image.load('sprites\enemy_4.png').convert_alpha(),
                   pygame.image.load('sprites\enemy_5.png').convert_alpha(),
-                  pygame.image.load('sprites\enemy_6.png').convert_alpha()]
+                  pygame.image.load('sprites\enemy_6.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_1.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_2.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_3.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_4.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_5.png').convert_alpha(),
+                  pygame.image.load('sprites\enemy_hit_6.png').convert_alpha()]
 
-    range_anim = [pygame.image.load('sprites\i_range_1.png').convert_alpha(),
-                  pygame.image.load('sprites\i_range_2.png').convert_alpha(),
-                  pygame.image.load('sprites\i_range_3.png').convert_alpha(),
-                  pygame.image.load('sprites\i_range_4.png').convert_alpha(),
-                  pygame.image.load('sprites\i_range_5.png').convert_alpha(),
-                  pygame.image.load('sprites\i_range_6.png').convert_alpha()]
+    # range_anim = [pygame.image.load('sprites\i_range_1.png').convert_alpha(),
+    #               pygame.image.load('sprites\i_range_2.png').convert_alpha(),
+    #               pygame.image.load('sprites\i_range_3.png').convert_alpha(),
+    #               pygame.image.load('sprites\i_range_4.png').convert_alpha(),
+    #               pygame.image.load('sprites\i_range_5.png').convert_alpha(),
+    #               pygame.image.load('sprites\i_range_6.png').convert_alpha()]
 
-    range_hit_anim =   [pygame.image.load('sprites\i_range_hit_1.png').convert_alpha(),
-                        pygame.image.load('sprites\i_range_hit_2.png').convert_alpha(),
-                        pygame.image.load('sprites\i_range_hit_3.png').convert_alpha(),
-                        pygame.image.load('sprites\i_range_hit_4.png').convert_alpha(),
-                        pygame.image.load('sprites\i_range_hit_5.png').convert_alpha(),
-                        pygame.image.load('sprites\i_range_hit_6.png').convert_alpha()]
+    # range_hit_anim =   [pygame.image.load('sprites\i_range_hit_1.png').convert_alpha(),
+    #                     pygame.image.load('sprites\i_range_hit_2.png').convert_alpha(),
+    #                     pygame.image.load('sprites\i_range_hit_3.png').convert_alpha(),
+    #                     pygame.image.load('sprites\i_range_hit_4.png').convert_alpha(),
+    #                     pygame.image.load('sprites\i_range_hit_5.png').convert_alpha(),
+    #                     pygame.image.load('sprites\i_range_hit_6.png').convert_alpha()]
 
     load_anim = [pygame.transform.scale(pygame.image.load('images\load1.png'), (WIDTH, HEIGHT)).convert_alpha(),
                     pygame.transform.scale(pygame.image.load('images\load2.png'), (WIDTH, HEIGHT)).convert_alpha(),
@@ -234,12 +246,12 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     level_num = 0
     clear_rooms = 0
     need_rooms = 3
-    room0 = Room(rrr[0], WIDTH, HEIGHT, 500, 50, -1, -1, -1, -1, -1, -1, 17, 16, level_num)
-    room1 = Room(rrr[1], WIDTH, HEIGHT, 250, 100, -1, -1, -1, -1, 200, 600, 20, 14, level_num)
-    room2 = Room(rrr[2], WIDTH, HEIGHT, -1, -1, 900, 300, 600, 600, 50, 300, 26, 12, level_num)
-    room3 = Room(rrr[3], WIDTH, HEIGHT, 350, 50, 800, 600, -1, -1, -1, -1, 22, 16, level_num)
-    room4 = Room(rrr[4], WIDTH, HEIGHT, -1, -1, 900, 375, -1, -1, 50, 375, 26, 7, level_num)
-    room5 = Room(rrr[5], WIDTH, HEIGHT, -1, -1, -1, -1, 425, 600, 75, 250, 25, 12, level_num)
+    room0 = Room(rrr[0], WIDTH, HEIGHT, 425, -50, -1, -1, -1, -1, -1, -1, 17, 16, level_num)
+    room1 = Room(rrr[1], WIDTH, HEIGHT, 250, 0, -1, -1, -1, -1, 100, 500, 20, 14, level_num)
+    room2 = Room(rrr[2], WIDTH, HEIGHT, -1, -1, 900, 250, 550, 600, -50, 250, 26, 12, level_num)
+    room3 = Room(rrr[3], WIDTH, HEIGHT, 300, -50, 800, 550, -1, -1, -1, -1, 22, 16, level_num)
+    room4 = Room(rrr[4], WIDTH, HEIGHT, -1, -1, 900, 325, -1, -1, 50, 125, 26, 7, level_num)
+    room5 = Room(rrr[5], WIDTH, HEIGHT, -1, -1, -1, -1, 375, 600, -25, 200, 25, 12, level_num)
     rooms = [room0, room1, room2, room3, room4, room5]
     rooms_u = [1, 3]
     rooms_r = [2, 3, 4]
@@ -256,7 +268,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     sum_time = 0
     runs = 1
 
-    weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 300, 120)
+    weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 10, 300, 1)
     center = weapon.rect.center
     weapon.rect = weapon.image.get_rect(center = center)
 
@@ -409,7 +421,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
             rooms[room_num].gates.clear()
 
             if rooms[room_num].portal1_x != -1:
-                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 50, 50), 1)
+                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect1.topleft, 150, 150), 1)
                 pygame.display.update()
                 # pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
                 if rooms[room_num].rect1.collidepoint(*Main_Hero.rect.center):
@@ -435,8 +447,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                             clock.tick(12)
                     else:
                         room_num = random.choice(rooms_d)
-                        Main_Hero.x = rooms[room_num].portal3_x
-                        Main_Hero.y = rooms[room_num].portal3_y - 100
+                        Main_Hero.x = rooms[room_num].rect3.centerx
+                        Main_Hero.y = rooms[room_num].rect3.top - 100
                         max_enemy =  randint(0, 7)
                         clear_rooms += 1
                     coins.empty()
@@ -451,7 +463,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].is_clear = False
 
             if rooms[room_num].portal2_x != -1:
-                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect2.topleft, 50, 50), 1)
+                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect2.topleft, 150, 150), 1)
                 pygame.display.update()
                 # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect2):
                 if rooms[room_num].rect2.collidepoint(*Main_Hero.rect.center):
@@ -477,8 +489,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                             clock.tick(12)
                     else:
                         room_num = random.choice(rooms_l)
-                        Main_Hero.x = rooms[room_num].portal4_x + 100
-                        Main_Hero.y = rooms[room_num].portal4_y
+                        Main_Hero.x = rooms[room_num].rect4.right + 100
+                        Main_Hero.y = rooms[room_num].rect4.centery
                         max_enemy =  randint(0, 7)
                         clear_rooms += 1
                     cnt = 0
@@ -493,7 +505,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].is_clear = False
 
             if rooms[room_num].portal3_x != -1:
-                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect3.topleft, 50, 50), 1)
+                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect3.topleft, 150, 150), 1)
                 pygame.display.update()
                 # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect3):
                 if rooms[room_num].rect3.collidepoint(*Main_Hero.rect.center):
@@ -519,8 +531,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                             clock.tick(62)
                     else:
                         room_num = random.choice(rooms_u)
-                        Main_Hero.x = rooms[room_num].portal1_x
-                        Main_Hero.y = rooms[room_num].portal1_y + 100
+                        Main_Hero.x = rooms[room_num].rect1.centerx
+                        Main_Hero.y = rooms[room_num].rect1.bottom + 100
                         max_enemy =  randint(0, 7)
                         clear_rooms += 1
                     coins.empty()
@@ -535,7 +547,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].is_clear = False
 
             if rooms[room_num].portal4_x != -1:
-                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect4.topleft, 50, 50), 1)
+                pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect4.topleft, 150, 150), 1)
                 pygame.display.update()
                 # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect4):
                 if rooms[room_num].rect4.collidepoint(*Main_Hero.rect.center):
@@ -561,8 +573,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                             clock.tick(12)
                     else:
                         room_num = random.choice(rooms_r)
-                        Main_Hero.x = rooms[room_num].portal2_x - 100
-                        Main_Hero.y = rooms[room_num].portal2_y
+                        Main_Hero.x = rooms[room_num].rect2.left - 100
+                        Main_Hero.y = rooms[room_num].rect2.centery
                         max_enemy =  randint(0, 7)
                         clear_rooms += 1
                     coins.empty()
@@ -593,7 +605,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
             animcount = 0
 
         crosses.update(animcount, cross_anim, pygame.time.get_ticks(), enemys, rooms[room_num], hp, damage, speed)
-        enemys.update(animcount, enemy_anim, Main_Hero, pygame.time.get_ticks(), rooms[room_num])
+        enemys.update(animcount, enemy_anim, Main_Hero, pygame.time.get_ticks(), rooms[room_num], coins)
         coins.update(animcount, coin_anim, Main_Hero)
 
         Main_Hero.update(animcount, move_right, move_left,
@@ -603,7 +615,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
         Main_Hero.update_weapon(animcount, fllast_move_is_right,
                                 Main_Hero.weapon, image_weapon,
                                 range, image_range, image_range_hit,
-                                enemys, coins)
+                                enemys, coins,  pygame.time.get_ticks())
 
         rooms[room_num].update(enemy_count, max_enemy, room_num, screen, WIDTH, HEIGHT, enemys)
 
@@ -689,3 +701,5 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 
         pygame.display.update()
      
+
+# game(1)

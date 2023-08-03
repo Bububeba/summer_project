@@ -88,7 +88,7 @@ class Hero(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center = (self.x, self.y))
 
     def update_weapon(self, animcount,
-                      fllast_move_is_right, weapon, image_weapon, range, image_range, image_range_hit, group, coins):
+                      fllast_move_is_right, weapon, image_weapon, range, image_range, image_range_hit, group, coins, cur_time):
         if fllast_move_is_right:
             weapon.rect.center = (self.rect.centerx + 30, self.rect.centery - 15)
             weapon.image = image_weapon
@@ -96,19 +96,21 @@ class Hero(pygame.sprite.Sprite):
             weapon.rect.center = (self.rect.centerx - 60, self.rect.centery - 15)
             weapon.image = pygame.transform.flip(image_weapon, True, False)
 
-        target_hit = self
+        # target_hit = self
         is_hit = False
+        targets_hit = pygame.sprite.Group()
         for item in group:
-            if self.range.rect.colliderect(item):
+            if (((self.rect.centerx - item.rect.centerx) ** 2 + (self.rect.centery - item.rect.centery) ** 2 ) ** 0.5) <= self.weapon.range / 2:
                 is_hit = True
-                target_hit = item
-                break
-
-        if is_hit and (((self.rect.centerx - target_hit.rect.centerx) ** 2 + (self.rect.centery - target_hit.rect.centery) ** 2 ) ** 0.5) <= self.weapon.range:
+                targets_hit.add(item)
+        # print(targets_hit)
+        if is_hit:
             range.image = pygame.transform.scale(image_range_hit, (image_range_hit.get_width() * (self.weapon.range / 100) + animcount // 2, image_range_hit.get_height() * (self.weapon.range / 100) + animcount//2))
-            self.weapon.hit(target_hit, coins)
+            self.weapon.hit(targets_hit, cur_time)
         else:
             range.image = pygame.transform.scale(image_range, (image_range.get_width() * (self.weapon.range / 100) + animcount // 2, image_range.get_height() * (self.weapon.range / 100) + animcount//2))
+        targets_hit.empty()
+        # print(targets_hit)
         # range.image = pygame.transform.scale(pygame.transform.rotate(image_range, animcount * 0.5), (image_range.get_width() * (self.weapon.range / 100), image_range.get_height() * (self.weapon.range / 100)))
         # range.image = pygame.transform.scale(image_range, (image_range.get_width() * (self.weapon.range / 100) - animcount // 2, image_range.get_height() * (self.weapon.range / 100) - animcount//2))
 

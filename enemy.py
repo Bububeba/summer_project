@@ -1,7 +1,7 @@
 import random
 import pygame
 import math
-
+from coin import Coin
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y, filename, hp, damage, speed, attack_speed, group, room, is_see=False):
@@ -11,6 +11,7 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = speed
         self.attack_speed = attack_speed
         self.last_hit = 0
+        self.last_attacked = 0
         #
         self.is_see = is_see
         self.x = x
@@ -23,17 +24,18 @@ class Enemy(pygame.sprite.Sprite):
         self.room = room
         self.add(group)
 
-    def update(self, animcount, enemy_anim, Main_Hero, current_time, room):
+    def update(self, animcount, enemy_anim, Main_Hero, current_time, room, coins):
 
         if self.hp <= 0:
-            # print("KILL")
+            Coin(self.x, self.y, 'sprites\coin_1.png', coins)
             room.kills_cnt += 1
-            # print( room.kills_cnt)
             self.kill()
 
         else:
-
-            self.image = enemy_anim[animcount // 5]
+            if current_time - self.last_attacked <= 500:
+                self.image = enemy_anim[(animcount // 5) + 6]
+            else:
+                self.image = enemy_anim[animcount // 5]
 
             if ((Main_Hero.x - self.x) ** 2 + (Main_Hero.y - self.y) ** 2) ** 0.5 <= self.range:
                 self.is_see = True
