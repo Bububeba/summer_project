@@ -244,12 +244,12 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     # level_num = 0
     level_num = 0
     clear_rooms = 0
-    need_rooms = 3
+    need_rooms = 1
     room0 = Room(rrr[0], WIDTH, HEIGHT, 425, -50, -1, -1, -1, -1, -1, -1, 17, 16, level_num)
     room1 = Room(rrr[1], WIDTH, HEIGHT, 250, 0, -1, -1, -1, -1, 100, 500, 20, 14, level_num)
     room2 = Room(rrr[2], WIDTH, HEIGHT, -1, -1, 900, 250, 550, 600, -50, 250, 26, 12, level_num)
     room3 = Room(rrr[3], WIDTH, HEIGHT, 300, -50, 800, 550, -1, -1, -1, -1, 22, 16, level_num)
-    room4 = Room(rrr[4], WIDTH, HEIGHT, -1, -1, 900, 325, -1, -1, 50, 125, 26, 7, level_num)
+    room4 = Room(rrr[4], WIDTH, HEIGHT, -1, -1, 900, 325, -1, -1, 350, 125, 26, 7, level_num)
     room5 = Room(rrr[5], WIDTH, HEIGHT, -1, -1, -1, -1, 375, 600, -25, 200, 25, 12, level_num)
     rooms = [room0, room1, room2, room3, room4, room5]
     rooms_u = [1, 3]
@@ -260,7 +260,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 
     # rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50)
 
-    Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 10)
+    Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 20)
 
 
     killed_enemy = 0
@@ -268,8 +268,10 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     sum_time = 0
     runs = 1
 
+
     weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 10,
                     300, 1)
+    weapon = Weapon(Main_Hero.rect.centerx + 33, Main_Hero.rect.centery - 10, 'sprites\scythe3.png', "Main_Hero", 100000000, 300, 1)
     center = weapon.rect.center
     weapon.rect = weapon.image.get_rect(center=center)
 
@@ -631,7 +633,40 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
         # обновление экрана
         screen.fill(BLACK)
         rooms[room_num].tiles.clear()
+        
+        rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50, level_num)
+        screen.blit(range.image, (range.rect[0], range.rect[1] ))
+        crosses.draw(screen)
+        coins.draw(screen)
+        screen.blit(Main_Hero.image, Main_Hero.rect)
+        screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] - 30  + animcount // 6))
+        enemys.draw(screen)
+
+
+        font = pygame.font.SysFont('couriernew', int(40))
+        text1 = font.render(str("HP: " + str(Main_Hero.hp)), True, WHITE)
+        text2 = font.render(str("Coins: " + str(Main_Hero.coins_score)), True, WHITE)
+
+        screen.blit(text1, (0,  0))
+        screen.blit(text2, (0, 50))
+
+
+        pygame.draw.rect(screen, RED, pygame.Rect(rooms[room_num].x_offset, rooms[room_num].y_offset, rooms[room_num].room_w, rooms[room_num].room_h), 1)
+        pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.rect.topleft,  100, 100), 1)
+        pygame.draw.rect(screen, RED, pygame.Rect(*Main_Hero.range.rect.topleft,   Main_Hero.range.image.get_width(),  Main_Hero.range.image.get_height()), 1)
+
+        for x in rooms[room_num].tiles:
+            pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
+
+
+
+        for x in enemys:
+            pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
+            pygame.draw.circle(screen, RED, x.rect.center, x.range, 1)
+
+
         if end_game:
+            screen.fill(BLACK)
             coins.empty()
             enemys.empty()
             font = pygame.font.SysFont('couriernew', int(70))
@@ -657,12 +692,12 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if RESPAWN_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        Main_Hero.hp = 100
                         killed_enemy = 0
                         fake_coins = Main_Hero.coins_score
                         sum_time += pygame.time.get_ticks()
                         runs += 1
                         end_game = False
+
 
             pygame.display.update()
         else:
@@ -699,6 +734,11 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                                  1)
                 pygame.draw.circle(screen, RED, x.rect.center, x.range, 1)
 
+                level_num, room_num, max_enemy, enemy_count, Main_Hero.hp = 0, 0, 0, 0, 100
+                Main_Hero.x = 500
+                Main_Hero.y = 655
+            pygame.display.update()
+
         pygame.display.update()
 
-# game(1)
+game(0)
