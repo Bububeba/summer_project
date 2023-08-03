@@ -751,6 +751,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         level_num, room_num, max_enemy, enemy_count, Main_Hero.hp = 0, 0, 0, 0, 100
                         Main_Hero.x = 500
                         Main_Hero.y = 655
+                        pygame.mixer.music.load(battle_music[level_num])
+                        pygame.mixer.music.play(-1)
             pygame.display.update()
     
         pygame.display.update()
