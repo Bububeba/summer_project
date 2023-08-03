@@ -225,7 +225,7 @@ WWWWL               RWWWW
 WWWWL               RWWWW
 WWWWCDDDDDGGGDDDDDDDBWWWW
 WWWWWWWWWWWWWWWWWWWWWWWWW
-    """
+"""
     maps = [map0, map1, map2, map3, map4, map5]
     chars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'f', 'F', '*']
     r0, r1, r2, r3, r4, r5 = '', '', '', '', '', ''
