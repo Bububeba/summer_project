@@ -1,4 +1,6 @@
 # здесь подключаются модули
+import random
+
 import pygame
 from pygame.locals import *
 import sys
@@ -243,7 +245,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     end_game = False
     end_time = 0
     #level_num = 0
-    level_num = 3
+    level_num = 0
     clear_rooms = 0
     need_rooms = 1
     room0 = Room(rrr[0], WIDTH, HEIGHT, 425, -50, -1, -1, -1, -1, -1, -1, 17, 16, level_num)
@@ -261,7 +263,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
 
     # rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50)
 
-    Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 20)
+    Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 1, 0, 20)
 
     killed_enemy= 0
     fake_coins = Main_Hero.coins_score
@@ -287,6 +289,19 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
     spawn_time = 0
     max_enemy = 0
 
+    st_mus = "music\\1.mp3" #["music\\1GatesofHell.mp3", "music\\1FinalExpense.mp3", "music\\1RiverofFlame.mp3"]
+    el_mus = "music\\2.mp3"#["music\\2TheKingandtheBull.mp3", "music\\2FieldofSouls.mp3", "music\\2TheExalted.mp3"]
+    as_mus = "music\\3.mp3"#["music\\3ThroughAsphodel.mp3", "music\\3MouthOfStyx.mp3", "music\\3TheBloodless.mp3"]
+    tr_mus = "music\\4.mp3"#["music\\4OutOfTartarus.mp3", "music\\4TheHouseOfHades.mp3", "music\\4ThePainfulWay.mp3"]
+    end_mus = "music\\Silence.mp3"
+
+    battle_music = [st_mus, el_mus, as_mus, tr_mus, end_mus]
+    death_mus = "music\\DeathandI.mp3"
+    lift_ost = "music\\lift_ost.ogg"
+
+     
+    pygame.mixer.music.load(battle_music[level_num])
+    pygame.mixer.music.play(-1)
 
     # rect = pygame.rect
 
@@ -366,6 +381,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
             damage= 2
             speed = 4
 
+
         elif level_num == 1:
             hp = 110
             damage= 4
@@ -386,10 +402,14 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
         current_time = pygame.time.get_ticks()
 
         if Main_Hero.hp <= 0:
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load(death_mus)
+            pygame.mixer.music.play(0)
             cnt = 0
             coins.empty()
             enemys.empty()
-            while (cnt < 10):
+            clear_rooms = 0
+            while (cnt < 100):
                 #screen.blit(Rect(screen, RED, pygame.Rect(0, 0, 1000, 1000), 1), (0, 0))
                 font = pygame.font.SysFont('couriernew', int(70))
                 text = font.render("ВЫ МЕРТВЫ", True, WHITE)
@@ -400,6 +420,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
             level_num, room_num, max_enemy, enemy_count, Main_Hero.hp = 0, 0, 0, 0, 100
             Main_Hero.x = 500
             Main_Hero.y = 655
+            pygame.mixer.music.load(battle_music[level_num])
+            pygame.mixer.music.play(-1)
 
         if enemy_count > 0 and  pygame.time.get_ticks() >= spawn_time:
             # print(enemy_count, "ADD")
@@ -434,17 +456,23 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         clear_rooms = 0
                         max_enemy = 0
                         cnt = 0
+                        pygame.mixer.music.stop()
                         while (cnt < len(load_anim)):
                             screen.blit(load_anim[cnt], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(20)
                         cnt = 0
+                        pygame.mixer.music.load(lift_ost)
+                        pygame.mixer.music.play(-1)
                         while (cnt < len(lift_anim) * 12):
                             screen.blit(lift_anim[cnt % 12], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(12)
+                        pygame.mixer.music.stop()
+                        pygame.mixer.music.load(battle_music[level_num])
+                        pygame.mixer.music.play(-1)
                     else:
                         room_num = random.choice(rooms_d)
                         Main_Hero.x = rooms[room_num].rect3.centerx
@@ -462,6 +490,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].kills_cnt = 0
                     rooms[room_last].is_clear = False
 
+
             if rooms[room_num].portal2_x != -1:
                 pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect2.topleft, 150, 150), 1)
                 pygame.display.update()
@@ -476,17 +505,23 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         clear_rooms = 0
                         max_enemy = 0
                         cnt = 0
+                        pygame.mixer.music.stop()
                         while (cnt < len(load_anim)):
                             screen.blit(load_anim[cnt], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(20)
                         cnt = 0
+                        pygame.mixer.music.load(lift_ost)
+                        pygame.mixer.music.play(-1)
                         while (cnt < len(lift_anim) * 12):
                             screen.blit(lift_anim[cnt % 12], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(12)
+                        pygame.mixer.music.stop()
+                        pygame.mixer.music.load(battle_music[level_num])
+                        pygame.mixer.music.play(-1)
                     else:
                         room_num = random.choice(rooms_l)
                         Main_Hero.x = rooms[room_num].rect4.right + 100
@@ -504,6 +539,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].kills_cnt = 0
                     rooms[room_last].is_clear = False
 
+
             if rooms[room_num].portal3_x != -1:
                 pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect3.topleft, 150, 150), 1)
                 pygame.display.update()
@@ -518,17 +554,23 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         clear_rooms = 0
                         max_enemy = 0
                         cnt = 0
+                        pygame.mixer.music.stop()
                         while (cnt < len(load_anim)):
                             screen.blit(load_anim[cnt], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(20)
                         cnt = 0
+                        pygame.mixer.music.load(lift_ost)
+                        pygame.mixer.music.play(-1)
                         while (cnt < len(lift_anim) * 12):
                             screen.blit(lift_anim[cnt%12], (0, 0))
                             pygame.display.flip()
                             cnt += 1
-                            clock.tick(62)
+                            clock.tick(12)
+                        pygame.mixer.music.stop()
+                        pygame.mixer.music.load(battle_music[level_num])
+                        pygame.mixer.music.play(-1)
                     else:
                         room_num = random.choice(rooms_u)
                         Main_Hero.x = rooms[room_num].rect1.centerx
@@ -546,6 +588,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                     rooms[room_last].kills_cnt = 0
                     rooms[room_last].is_clear = False
 
+
             if rooms[room_num].portal4_x != -1:
                 pygame.draw.rect(screen, RED, pygame.Rect(*rooms[room_num].rect4.topleft, 150, 150), 1)
                 pygame.display.update()
@@ -560,17 +603,23 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         clear_rooms = 0
                         max_enemy = 0
                         cnt = 0
+                        pygame.mixer.music.stop()
                         while (cnt < len(load_anim)):
                             screen.blit(load_anim[cnt], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(20)
                         cnt = 0
+                        pygame.mixer.music.load(lift_ost)
+                        pygame.mixer.music.play(-1)
                         while (cnt < len(lift_anim) * 12):
                             screen.blit(lift_anim[cnt % 12], (0, 0))
                             pygame.display.flip()
                             cnt += 1
                             clock.tick(12)
+                        pygame.mixer.music.stop()
+                        pygame.mixer.music.load(battle_music[level_num])
+                        pygame.mixer.music.play(-1)
                     else:
                         room_num = random.choice(rooms_r)
                         Main_Hero.x = rooms[room_num].rect2.left - 100
@@ -587,6 +636,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                         clock.tick(16)
                     rooms[room_last].kills_cnt = 0
                     rooms[room_last].is_clear = False
+
+
 
             if level_num == 4:
                 level_num = 0
