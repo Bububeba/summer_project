@@ -105,7 +105,20 @@ load_anim = [pygame.transform.scale(pygame.image.load('images\load1.png'), (WIDT
                 pygame.transform.scale(pygame.image.load('images\load15.png'), (WIDTH, HEIGHT)).convert_alpha(),
                 pygame.transform.scale(pygame.image.load('images\load16.png'), (WIDTH, HEIGHT)).convert_alpha()]
 
-image_weapon = pygame.image.load('sprites\scythe3.png').convert_alpha()
+lift_anim = [pygame.transform.scale(pygame.image.load('sprites\lift_anim1.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim2.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim3.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim4.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim5.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim6.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim1.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim2.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim3.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim4.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim5.png'), (WIDTH, HEIGHT)).convert_alpha(),
+                pygame.transform.scale(pygame.image.load('sprites\lift_anim6.png'), (WIDTH, HEIGHT)).convert_alpha(),]
+
+image_weapon = pygame.image.load('sprites\oar_1.png').convert_alpha()
 image_weapon = pygame.transform.rotate(image_weapon , -15)
 image_weapon = pygame.transform.scale(image_weapon , (image_weapon .get_width() * 1.3, image_weapon .get_height() * 1.3))
 
@@ -113,92 +126,122 @@ image_range  = pygame.image.load('sprites\i_range_1.png').convert_alpha()
 image_range_hit  = pygame.image.load('sprites\i_range_hit_1.png').convert_alpha()
 
 animcount = 0         # счетчик кадров для анимации
+#U - up wall, R - right wall, D, L
+#A - правый верхний угол, B - правый нижний, C - левый нижний, E -
+map0 = """WWWWWWWWWWWWWWWWW
+WWWWEUUGGGUUAWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWL       RWWWW
+WWWWCDDDDDDDBWWWW
+WWWWWWWWWWWWWWWWW
+"""
+map1 = """WWWWWWWWWWWWWWWWWWWW
+WWWWEGGGUUUUUUUAWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWL          RWWWW
+WWWWG          RWWWW
+WWWWG          RWWWW
+WWWWG          RWWWW
+WWWWCDDDDDDDDDDBWWWW
+WWWWWWWWWWWWWWWWWWWW
+"""
+map2 = """WWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWEUUUUUUUUUUUUUUUUAWWWW
+WWWWL                RWWWW
+WWWWG                GWWWW
+WWWWG                GWWWW
+WWWWG                GWWWW
+WWWWL                RWWWW
+WWWWL                RWWWW
+WWWWL                RWWWW
+WWWWL                RWWWW
+WWWWCDDDDDDDDDGGGDDDDBWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWW
+"""
+map3 = """WWWWWWWWWWWWWWWWWWWWWW
+WWWWEUUGGGUUUUUUUAWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            RWWWW
+WWWWL            GWWWW
+WWWWL            GWWWW
+WWWWL            GWWWW
+WWWWCDDDDDDDDDDDDBWWWW
+WWWWWWWWWWWWWWWWWWWWWW
+"""
+map4 = """WWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWEUUUUUUUUUUUUUUUUAWWWW
+WWWWG                GWWWW
+WWWWG                GWWWW
+WWWWG                GWWWW
+WWWWCDDDDDDDDDDDDDDDDBWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWW
+"""
+map5 = """WWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWEUUUUUUUUUUUUUUUAWWWW
+WWWWG               RWWWW
+WWWWG               RWWWW
+WWWWG               RWWWW
+WWWWL               RWWWW
+WWWWL               RWWWW
+WWWWL               RWWWW
+WWWWL               RWWWW
+WWWWL               RWWWW
+WWWWCDDDDDGGGDDDDDDDBWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWW
+"""
+maps = [map0, map1, map2, map3, map4, map5]
+chars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'f', 'F', '*']
+r0, r1, r2, r3, r4, r5 = '', '', '', '', '', ''
+rrr = [r0, r1, r2, r3, r4, r5]
 
-r0 = """WWWGGGWWW
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-W       W
-WWWWWWWWW
-"""
-r1 = """WGGGWWWWWWWW
-W          W
-W          W
-W          W
-W          W
-W          W
-W          W
-W          W
-G          W
-G          W
-G          W
-WWWWWWWWWWWW
-"""
-r2 = """WWWWWWWWWWWWWWWWWW
-W                W
-G                G
-G                G
-G                G
-W                W
-W                W
-W                W
-W                W
-WWWWWWWWWWGGGWWWWW
-"""
-r3 = """WWWGGGWWWWWWWW
-W            W
-W            W
-W            W
-W            W
-W            W
-W            W
-W            W
-W            W
-W            W
-W            G
-W            G
-W            G
-WWWWWWWWWWWWWW
-"""
-r4 = """WWWWWWWWWWWWWWWWWW
-G                G
-G                G
-G                G
-WWWWWWWWWWWWWWWWWW
-"""
-r5 = """WWWWWWWWWWWWWWWWW
-G               W
-G               W
-G               W
-W               W
-W               W
-W               W
-W               W
-W               W
-WWWWWWGGGWWWWWWWW
-"""
+for i in range(len(maps)):
+    for j in range(len(maps[i])):
+        if maps[i][j] == ' ':
+            r = random.randint(0, len(chars) - 1)
+            rrr[i] += chars[r]
+        else:
+            rrr[i] += maps[i][j]
 
-room0 = Room(r0, WIDTH, HEIGHT, 475, 50, -1, -1, -1, -1, -1, -1, 9, 14)
-room1 = Room(r1, WIDTH, HEIGHT, 300, 100, -1, -1, -1, -1, 200, 500, 12, 12)
-room2 = Room(r2, WIDTH, HEIGHT, -1, -1, 900, 300, 600, 600, 50, 300, 18, 10)
-room3 = Room(r3, WIDTH, HEIGHT, 350, 50, 800, 600, -1, -1, -1, -1, 14, 14)
-room4 = Room(r4, WIDTH, HEIGHT, -1, -1, 900, 375, -1, -1, 50, 375, 18, 5)
-room5 = Room(r5, WIDTH, HEIGHT, -1, -1, -1, -1, 425, 600, 75, 250, 17, 10)
+
+#level_num = 0
+level_num = 1
+clear_rooms = 0
+need_rooms = 2
+room0 = Room(rrr[0], WIDTH, HEIGHT, 500, 50, -1, -1, -1, -1, -1, -1, 17, 16, level_num)
+room1 = Room(rrr[1], WIDTH, HEIGHT, 250, 100, -1, -1, -1, -1, 200, 600, 20, 14, level_num)
+room2 = Room(rrr[2], WIDTH, HEIGHT, -1, -1, 900, 300, 600, 600, 50, 300, 26, 12, level_num)
+room3 = Room(rrr[3], WIDTH, HEIGHT, 350, 50, 800, 600, -1, -1, -1, -1, 22, 16, level_num)
+room4 = Room(rrr[4], WIDTH, HEIGHT, -1, -1, 900, 375, -1, -1, 50, 375, 26, 7, level_num)
+room5 = Room(rrr[5], WIDTH, HEIGHT, -1, -1, -1, -1, 425, 600, 75, 250, 25, 12, level_num)
 rooms = [room0, room1, room2, room3, room4, room5]
 rooms_u = [1, 3]
 rooms_r = [2, 3, 4]
 rooms_d = [2, 5]
 rooms_l = [1, 2, 4, 5]
 room_num = 0
-level_num = 0
+
 # rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50)
 
 Main_Hero = Hero(500, 655, 'sprites\move_right_1.png', 100, 0, 10)
@@ -221,6 +264,7 @@ crosses = pygame.sprite.Group()
 enemy_count = 0
 spawn_time = 0
 max_enemy = 0
+
 
 # rect = pygame.rect
 
@@ -309,9 +353,38 @@ while True:
         hp = 120
         damage= 6
         speed = 6
+    
+    elif level_num == 3:
+        hp = 140
+        damage= 10
+        speed = 8
 
-    # current_time = pygame.time.get_ticks()
-    # temp = enemy_count
+    elif level_num == 4:
+        coins.empty()
+        enemys.empty()
+        font = pygame.font.SysFont('couriernew', int(70))
+        text = font.render("ВАШ СЧЁТ:", True, WHITE)
+        screen.blit(text, (0, 0))
+        #мне нужно слить свои румы и мейн с алей и денисом чтобы дописать тут пару строк
+
+    current_time = pygame.time.get_ticks()
+
+    if Main_Hero.hp <= 0:
+        cnt = 0
+        coins.empty()
+        enemys.empty()
+        while (cnt < 10):
+            #screen.blit(Rect(screen, RED, pygame.Rect(0, 0, 1000, 1000), 1), (0, 0))
+            font = pygame.font.SysFont('couriernew', int(70))
+            text = font.render("ВЫ МЕРТВЫ", True, WHITE)
+            screen.blit(text, (0, 0))
+            pygame.display.flip()
+            cnt += 1
+            clock.tick(20)
+        level_num, room_num, max_enemy, Main_Hero.hp = 0, 0, 0, 100
+        Main_Hero.x = 500
+        Main_Hero.y = 655
+
     if enemy_count > 0 and  pygame.time.get_ticks() >= spawn_time:
         # print(enemy_count, "ADD")
         Cross(
@@ -336,13 +409,33 @@ while True:
             pygame.display.update()
             # pygame.draw.rect(screen, RED, pygame.Rect(*x.rect.topleft,  x.image.get_width(), x.image.get_height()), 1)
             if rooms[room_num].rect1.collidepoint(*Main_Hero.rect.center): 
-                room_num = random.choice(rooms_d)
-                coins.empty()
-                Main_Hero.x = rooms[room_num].portal3_x
-                Main_Hero.y = rooms[room_num].portal3_y - 100
-                max_enemy =  randint(3, 7)
+                if clear_rooms == need_rooms:
+                    room_num = 0
+                    Main_Hero.x = 500
+                    Main_Hero.y = 655
+                    level_num += 1
+                    clear_rooms = 0
+                    max_enemy = 0
+                    cnt = 0
+                    while (cnt < len(load_anim)):
+                        screen.blit(load_anim[cnt], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(20)
+                    cnt = 0
+                    while (cnt < len(lift_anim) * 12):
+                        screen.blit(lift_anim[cnt % 12], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(12)
+                else:
+                    room_num = random.choice(rooms_d)
+                    Main_Hero.x = rooms[room_num].portal3_x
+                    Main_Hero.y = rooms[room_num].portal3_y - 100
+                    max_enemy =  randint(3, 7)
+                    clear_rooms += 1
+                coins.empty()   
                 enemy_count = max_enemy
-                
                 cnt = 0
                 while(cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
@@ -357,13 +450,34 @@ while True:
             pygame.display.update()
             # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect2):
             if rooms[room_num].rect2.collidepoint(*Main_Hero.rect.center): 
-                room_num = random.choice(rooms_l)
-                coins.empty()
-                Main_Hero.x = rooms[room_num].portal4_x + 100
-                Main_Hero.y = rooms[room_num].portal4_y
-                max_enemy =  randint(3, 7)
-                enemy_count = max_enemy
+                if clear_rooms == need_rooms:
+                    room_num = 0
+                    Main_Hero.x = 500
+                    Main_Hero.y = 655
+                    level_num += 1
+                    clear_rooms = 0
+                    max_enemy = 0
+                    cnt = 0
+                    while (cnt < len(load_anim)):
+                        screen.blit(load_anim[cnt], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(20)
+                    cnt = 0
+                    while (cnt < len(lift_anim) * 12):
+                        screen.blit(lift_anim[cnt % 12], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(12)
+                else:
+                    room_num = random.choice(rooms_l)
+                    Main_Hero.x = rooms[room_num].portal4_x + 100
+                    Main_Hero.y = rooms[room_num].portal4_y
+                    max_enemy =  randint(3, 7)
+                    clear_rooms += 1
                 cnt = 0
+                coins.empty()
+                enemy_count = max_enemy
                 while (cnt < len(load_anim)):
                     screen.blit(load_anim[cnt], (0, 0))
                     pygame.display.flip()
@@ -377,11 +491,32 @@ while True:
             pygame.display.update()
             # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect3):
             if rooms[room_num].rect3.collidepoint(*Main_Hero.rect.center): 
-                room_num = random.choice(rooms_u)
+                if clear_rooms == need_rooms:
+                    room_num = 0
+                    Main_Hero.x = 500
+                    Main_Hero.y = 655
+                    level_num += 1
+                    clear_rooms = 0
+                    max_enemy = 0
+                    cnt = 0
+                    while (cnt < len(load_anim)):
+                        screen.blit(load_anim[cnt], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(20)
+                    cnt = 0
+                    while (cnt < len(lift_anim)*12):
+                        screen.blit(lift_anim[cnt%12], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(62)
+                else:
+                    room_num = random.choice(rooms_u)
+                    Main_Hero.x = rooms[room_num].portal1_x
+                    Main_Hero.y = rooms[room_num].portal1_y + 100
+                    max_enemy =  randint(3, 7)
+                    clear_rooms += 1
                 coins.empty()
-                Main_Hero.x = rooms[room_num].portal1_x
-                Main_Hero.y = rooms[room_num].portal1_y + 100
-                max_enemy =  randint(3, 7)
                 enemy_count = max_enemy
                 cnt = 0
                 while (cnt < len(load_anim)):
@@ -397,11 +532,32 @@ while True:
             pygame.display.update()
             # if pygame.Rect.colliderect(Main_Hero.rect, rooms[room_num].rect4):
             if rooms[room_num].rect4.collidepoint(*Main_Hero.rect.center): 
-                room_num = random.choice(rooms_r)
+                if clear_rooms == need_rooms:
+                    room_num = 0
+                    Main_Hero.x = 500
+                    Main_Hero.y = 655
+                    level_num += 1
+                    clear_rooms = 0
+                    max_enemy = 0
+                    cnt = 0
+                    while (cnt < len(load_anim)):
+                        screen.blit(load_anim[cnt], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(20)
+                    cnt = 0
+                    while (cnt < len(lift_anim) * 12):
+                        screen.blit(lift_anim[cnt % 12], (0, 0))
+                        pygame.display.flip()
+                        cnt += 1
+                        clock.tick(12)
+                else:
+                    room_num = random.choice(rooms_r)
+                    Main_Hero.x = rooms[room_num].portal2_x - 100
+                    Main_Hero.y = rooms[room_num].portal2_y
+                    max_enemy =  randint(3, 7)
+                    clear_rooms += 1
                 coins.empty()
-                Main_Hero.x = rooms[room_num].portal2_x - 100
-                Main_Hero.y = rooms[room_num].portal2_y
-                max_enemy =  randint(3, 7)
                 enemy_count = max_enemy
                 cnt = 0
                 while (cnt < len(load_anim)):
@@ -425,10 +581,6 @@ while True:
 
     crosses.update(animcount, cross_anim, pygame.time.get_ticks(), enemys, rooms[room_num], hp, damage, speed)
     enemys.update(animcount, enemy_anim, Main_Hero, pygame.time.get_ticks(), rooms[room_num])
-
-
-
-
     coins.update(animcount, coin_anim, Main_Hero)
 
     Main_Hero.update(animcount, move_right, move_left,
@@ -440,24 +592,23 @@ while True:
                             range, image_range, image_range_hit, 
                             enemys, coins)
     
-
-    
-    
-
-
     rooms[room_num].update(enemy_count, max_enemy, room_num, screen, WIDTH, HEIGHT, enemys)
+
+    #
+
+    # rooms[room_num].update(Main_Hero, enemy_count, room_num, screen, WIDTH, HEIGHT, enemys, rooms)
 
     # --------
  
     # обновление экрана
     screen.fill(BLACK)
     rooms[room_num].tiles.clear()
-    rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50)
+    rooms[room_num].room_draw(screen, WIDTH, HEIGHT, rooms[room_num].room_w/50, rooms[room_num].room_h/50, level_num)
     screen.blit(range.image, (range.rect[0], range.rect[1] ))
-    screen.blit(Main_Hero.image, Main_Hero.rect)
-    screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] + animcount // 6))
-    coins.draw(screen)
     crosses.draw(screen)
+    coins.draw(screen)
+    screen.blit(Main_Hero.image, Main_Hero.rect)
+    screen.blit(weapon.image, (weapon.rect[0], weapon.rect[1] - 30  + animcount // 6))
     enemys.draw(screen)
 
 
