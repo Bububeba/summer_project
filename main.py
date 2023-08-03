@@ -397,7 +397,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWW
                 pygame.display.flip()
                 cnt += 1
                 clock.tick(20)
-            level_num, room_num, max_enemy, Main_Hero.hp = 0, 0, 0, 100
+            level_num, room_num, max_enemy, enemy_count, Main_Hero.hp = 0, 0, 0, 0, 100
             Main_Hero.x = 500
             Main_Hero.y = 655
 
