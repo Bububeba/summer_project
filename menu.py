@@ -51,6 +51,8 @@ def main_menu():
                     pygame.quit()
                     sys.exit()
 
+
+        
         pygame.display.update()
 
 
