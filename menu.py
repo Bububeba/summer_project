@@ -1,7 +1,8 @@
 import pygame
 import sys
 from button import Button
-from map_test import *
+#from map_test import *
+from main import *
 
 pygame.init()
 

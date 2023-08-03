@@ -36,33 +36,14 @@ class Room:
                             'el_floor13.png' , 
                             'el_floor14.png']
         
-        self.asfodel_tiles = ['as_wall1.png',
-                              'as_wall2.png',
-                              'as_wall3.png',
-                              'as_wall4.png',
-                              'as_corner1.png',
-                              'as_corner2.png',
-                              'as_corner3.png',
-                              'as_corner4.png',
-                              'as_lava.png',
-                              'as_floor1.png',
-                              'as_floor2.png',
-                              'as_floor3.png',
-                              'as_floor4.png']
+        self.asfodel_tiles = ['as_wall1.png', 'as_wall2.png', 'as_wall3.png', 'as_wall4.png', 'as_corner1.png',
+                              'as_corner2.png', 'as_corner3.png', 'as_corner4.png', 'as_lava.png', 'as_floor1.png',
+                              'as_floor2.png', 'as_floor3.png', 'as_floor4.png']
         
-        self.tartar_tiles = ['as_wall1.png',
-                            'as_wall2.png',
-                            'as_wall3.png',
-                            'as_wall4.png',
-                            'as_corner1.png',
-                            'as_corner2.png',
-                            'as_corner3.png',
-                            'as_corner4.png',
-                            'as_lava.png',
-                            'as_floor1.png',
-                            'as_floor2.png',
-                            'as_floor3.png',
-                            'as_floor4.png']
+        self.tartar_tiles = ['tr_wall1.png', 'tr_wall2.png', 'tr_wall3.png', 'tr_wall4.png', 'tr_corner1.png',
+                            'tr_corner2.png', 'tr_corner3.png', 'tr_corner4.png', 'tr_water.png', 'tr_floor1.png',
+                            'tr_floor2.png', 'tr_floor3.png', 'tr_floor4.png', 'tr_floor5.png', 'tr_floor6.png',
+                            'tr_floor7.png', 'tr_floor8.png', 'tr_floor9.png']
         
         self.sticks_tiles = ['as_wall1.png',
                             'as_wall2.png',

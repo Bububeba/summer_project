@@ -3,7 +3,7 @@ from map import *
 
 
 class Save:
-    def __init__(self, hero: Hero, curr_level_index, curr_room_index):
+    def __init__(self, hero, curr_level_index, curr_room_index):
         self.file = shelve.open("progress")
         self.info = {
             'start_x': hero.x,
@@ -17,7 +17,7 @@ class Save:
     def save_data(self):
         self.file['Info'] = self.info
 
-    def update(self, hero: Hero, curr_level_index, curr_room_index):
+    def update(self, hero, curr_level_index, curr_room_index):
         self.info = {
             'start_x': hero.x,
             'start_y': hero.y,
